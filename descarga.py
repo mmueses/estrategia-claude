@@ -7,6 +7,7 @@ import os
 import sys
 import time
 
+import pandas as pd
 import yfinance as yf
 
 from evalua import FONDOS, main as evaluar
@@ -37,7 +38,14 @@ def principal():
             print(f'{t}: FALLO, se conserva la copia anterior')
             continue
         d.index.name = 'Date'
-        d[['Open', 'High', 'Low', 'Close', 'Volume']].to_csv(f"{CARPETA}/{t.replace('^', '')}.csv")
+        archivo = f"{CARPETA}/{t.replace('^', '')}.csv"
+        if os.path.exists(archivo):
+            viejo = pd.read_csv(archivo, parse_dates=['Date'])['Date']
+            if len(viejo) and d.index[-1] < viejo.iloc[-1]:
+                fallos.append(t)
+                print(f'{t}: Yahoo devuelve datos más antiguos que la copia guardada; se conserva la copia')
+                continue
+        d[['Open', 'High', 'Low', 'Close', 'Volume']].to_csv(archivo)
         print(f'{t}: OK, {len(d)} sesiones, última {d.index[-1].date()}')
     evaluar(CARPETA)
     if fallos:

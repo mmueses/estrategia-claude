@@ -1,5 +1,5 @@
 {
- "generado": "2026-11-17 09:16 UTC",
+ "generado": "2026-11-17 09:26 UTC",
  "ultimo_cierre": {
   "fecha": "2026-11-16",
   "valor": 7416.59
@@ -31,6 +31,7 @@
    "destino": "SP",
    "destino_texto": "Fondo S&P 500",
    "cambio": false,
+   "fecha_orden": "2026-11-02",
    "revision_hoy": false,
    "proxima_revision": "2026-11-30",
    "si_hoy_fuera_revision": {
@@ -197,6 +198,7 @@
    "destino": "SP",
    "destino_texto": "Fondo S&P 500",
    "cambio": false,
+   "fecha_orden": "2026-11-17",
    "revision_hoy": true,
    "proxima_revision": "2026-12-15",
    "si_hoy_fuera_revision": {
@@ -341,7 +343,7 @@
  "fondos": [
   {
    "clave": "SP",
-   "nombre": "iShares US Equity Index Fund, clase S (EUR)",
+   "nombre": "iShares US Index Fund (IE), clase S Acc EUR",
    "isin": "IE000N4ZYX28",
    "yahoo": "0P0001XF42.F",
    "ultimo_valor": 12.579,

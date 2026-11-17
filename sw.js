@@ -1,5 +1,5 @@
 // Guarda la app y la última copia de los datos para abrirla sin conexión.
-const CACHE = 'estrategia-v1';
+const CACHE = 'estrategia-v2';
 const BASE = ['./', 'index.html', 'manifest.webmanifest', 'icono.svg', 'icono-192.png', 'icono-512.png'];
 self.addEventListener('install', e => e.waitUntil(caches.open(CACHE).then(c => c.addAll(BASE)).then(() => self.skipWaiting())));
 self.addEventListener('activate', e => e.waitUntil(

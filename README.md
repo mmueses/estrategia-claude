@@ -11,7 +11,7 @@ En Android, ábrela con Chrome y pulsa ⋮ > **Añadir a pantalla de inicio** (o
 - **Mitad A:** se revisa el último día con bolsa abierta en Nueva York de cada mes.
 - **Mitad B:** se revisa el primer día con bolsa abierta a partir del día 15 de cada mes.
 - En su fecha, cada mitad compara el cierre del índice S&P 500 con la media de sus 10 últimos cierres de revisión.
-  - Por encima: fondo S&P 500 (iShares US Equity Index Fund S, IE000N4ZYX28).
+  - Por encima: fondo S&P 500 (iShares US Index Fund (IE) clase S Acc EUR, IE000N4ZYX28).
   - Por debajo: refugio. Va a bonos (iShares Global Aggregate 1-5Y cubierto EUR, IE0004ZP1ND3) si su rentabilidad en las 12 últimas revisiones supera a la del monetario (AXA IM Euro Liquidity SRI, FR0000978371). Si no, al monetario.
 - El traspaso se ordena el día siguiente a la revisión.
 

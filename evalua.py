@@ -20,7 +20,7 @@ import pandas as pd
 import pandas_market_calendars as mcal
 
 FONDOS = {
-    'SP': {'nombre': 'iShares US Equity Index Fund, clase S (EUR)', 'isin': 'IE000N4ZYX28', 'yahoo': '0P0001XF42.F'},
+    'SP': {'nombre': 'iShares US Index Fund (IE), clase S Acc EUR', 'isin': 'IE000N4ZYX28', 'yahoo': '0P0001XF42.F'},
     'BONOS': {'nombre': 'iShares Global Aggregate 1-5Y Bond Index, cubierto EUR', 'isin': 'IE0004ZP1ND3', 'yahoo': '0P0001W7AI.F'},
     'MONETARIO': {'nombre': 'AXA IM Euro Liquidity SRI', 'isin': 'FR0000978371', 'yahoo': '0P00000N5G.F'},
 }
@@ -93,6 +93,9 @@ def evaluar_mitad(mitad, spx, fondos, dias_todos):
     ult9 = list(cierres.iloc[-9:]) if hechas[-1] != ultimo else list(cierres.iloc[-10:-1])
     media_hoy = (sum(ult9) + float(spx.iloc[-1])) / N_MEDIA
     futuras = revisiones[revisiones > ultimo]
+    # La orden de traspaso se da el día con bolsa abierta siguiente a la revisión
+    siguientes = dias_todos[dias_todos > hechas[-1]]
+    fecha_orden = siguientes[0].strftime('%Y-%m-%d') if len(siguientes) else None
     return dict(
         mitad=mitad,
         regla='Último día con bolsa abierta de cada mes' if mitad == 'A' else 'Primer día con bolsa abierta a partir del 15 de cada mes',
@@ -101,6 +104,7 @@ def evaluar_mitad(mitad, spx, fondos, dias_todos):
         destino=actual['destino'],
         destino_texto=NOMBRE_DESTINO[actual['destino']],
         cambio=bool(cambio),
+        fecha_orden=fecha_orden,
         revision_hoy=hechas[-1] == ultimo,
         proxima_revision=futuras[0].strftime('%Y-%m-%d') if len(futuras) else None,
         si_hoy_fuera_revision=dict(cierre=round(float(spx.iloc[-1]), 2), media=round(media_hoy, 2),
