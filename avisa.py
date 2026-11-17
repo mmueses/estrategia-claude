@@ -76,7 +76,7 @@ def avisos(estado, hoy):
                 out.append((f"rev-{t['tramo']}-{r['fecha']}", f"Tramo {t['tramo']}: sin cambios",
                             f"Revisión del {fecha(r['fecha'])}: cierre {num(r['cierre'])} frente a media {num(r['media'])} "
                             f"({pct(r['distancia_pct'])}). Sigue en {t['destino_texto'].lower()}. No hay que hacer nada.",
-                            3, ['white_check_mark']))
+                            4, ['white_check_mark']))
         prox = t['proxima_revision']
         d = t['si_hoy_fuera_revision']['distancia_pct']
         if prox and pd.Timestamp(prox) == manana and abs(d) < UMBRAL_CERCA:
@@ -89,7 +89,7 @@ def avisos(estado, hoy):
 def main(carpeta='datos', prueba=False):
     topic = os.environ.get('NTFY_TOPIC', '').strip()
     if prueba:
-        enviar(topic, 'Prueba de avisos', 'Si ves esto, los avisos de la estrategia funcionan.', 3, ['tada'])
+        enviar(topic, 'Prueba de avisos', 'Si ves esto, los avisos de la estrategia funcionan.', 4, ['tada'])
         return
     estado = json.load(open(f'{carpeta}/estado.json', encoding='utf-8'))
     ruta = f'{carpeta}/avisos.json'
