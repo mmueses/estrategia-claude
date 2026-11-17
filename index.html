@@ -112,7 +112,9 @@ function tarjetaMitad(m) {
   }
   const margen = h.distancia_pct;
   card.append(el('p', { class: 'nota' }, `Si hoy fuera revisión: cierre ${fmt(h.cierre)} frente a media ${fmt(h.media)} (${pct(margen)}).`));
-  if (Math.abs(margen) < 2) {
+  if (Math.abs(margen) < 1) {
+    card.append(el('p', { class: 'aviso' }, `Muy cerca: el índice está a menos de un 1 % de la media. La revisión del ${fecha(m.proxima_revision)} puede traer traspaso; no hagas nada antes.`));
+  } else if (Math.abs(margen) < 2) {
     card.append(el('p', { class: 'aviso' }, `Atención: el índice está a menos de un 2 % de la media; la próxima revisión puede cambiar la señal.`));
   }
   const tbody = el('tbody');

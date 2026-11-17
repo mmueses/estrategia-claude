@@ -30,3 +30,12 @@ En Android, ábrela con Chrome y pulsa ⋮ > **Añadir a pantalla de inicio** (o
 - La tarjeta «Desde que empezaste» compara la estrategia con tener todo en el fondo del S&P 500 desde la fecha que pongas (se guarda solo en ese navegador). Usa los valores liquidativos de los fondos (`valores_liquidativos` en `estado.json`) y las órdenes de cada tramo (`ordenes`).
 - Reglas de la casa: https://claude.ai/artifact/A2WrfZTghWGtpGg7JMYpPK
 - Informe completo del backtest y documentos: Proyecto de claude.ai «Estrategia De Inversion CLAUDE».
+
+## Avisos al móvil (ntfy)
+
+`avisa.py` se ejecuta tras cada actualización y envía con [ntfy](https://ntfy.sh) (una sola vez cada uno, registrados en `datos/avisos.json`):
+- El resultado de cada revisión en cuanto hay cierre: «TRASPASO tramo X» (prioridad alta, con el fondo y el día de la orden) o «Tramo X: sin cambios».
+- La víspera de una revisión, si ese tramo está a menos de un 1 % de su media.
+- Si los datos llevan más de 4 días sin actualizarse.
+
+Para activarlos: instala la app ntfy en el móvil, suscríbete al tema y guarda ese mismo tema en el secreto `NTFY_TOPIC` del repositorio (Settings > Secrets and variables > Actions). Sin el secreto no se envía nada. Prueba: Actions > Actualiza datos > Run workflow, marcando «Enviar un aviso de prueba al móvil».

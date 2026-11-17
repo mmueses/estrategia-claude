@@ -4,11 +4,18 @@ name: Actualiza datos
 # - Automática: de lunes a viernes a las 21:47 UTC (después del cierre de Wall Street)
 #   y de martes a sábado a las 05:17 UTC (por si la primera falla).
 # - Manual: pestaña Actions > Actualiza datos > Run workflow (también desde el móvil).
+#   Marcando 'Enviar un aviso de prueba' llega una notificación de prueba al móvil.
+# Avisos al móvil: avisa.py los envía con ntfy al tema guardado en el secreto NTFY_TOPIC.
 on:
   schedule:
     - cron: '47 21 * * 1-5'
     - cron: '17 5 * * 2-6'
   workflow_dispatch:
+    inputs:
+      prueba:
+        description: 'Enviar un aviso de prueba al móvil'
+        type: boolean
+        default: false
   push:
     branches: [main]
     paths: ['descarga.py', 'evalua.py', '.github/workflows/actualiza.yml']
@@ -34,6 +41,13 @@ jobs:
         id: bajar
         continue-on-error: true
         run: python3 descarga.py
+      - name: Avisos al móvil (ntfy)
+        continue-on-error: true
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: |
+          if [ "${{ inputs.prueba }}" = "true" ]; then python3 avisa.py datos --prueba; fi
+          python3 avisa.py datos
       - name: Guardar en el repositorio
         run: |
           git config user.name "github-actions[bot]"
