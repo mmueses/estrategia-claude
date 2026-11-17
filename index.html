@@ -44,18 +44,25 @@
   .fondos td:last-child { font-family:ui-monospace,monospace; font-size:.78rem; }
   button { background:var(--accent); color:#fff; border:0; border-radius:10px; padding:10px 14px; font-size:.95rem; }
   .error { color:var(--bad); }
+  a { color:var(--accent); }
+  .form { display:flex; flex-direction:column; gap:8px; margin-top:10px; }
+  .form input { font:inherit; padding:8px 10px; border:1px solid var(--line); border-radius:10px; background:var(--bg); color:var(--fg); margin-left:4px; }
+  .recordatorio { background:color-mix(in srgb, var(--warn) 12%, transparent); border-radius:10px; padding:10px 12px; margin-top:10px; font-size:.88rem; line-height:1.4; }
+  button.secundario { background:transparent; color:var(--accent); border:1px solid var(--line); margin-top:8px; padding:6px 10px; font-size:.85rem; }
 </style>
 </head>
 <body>
 <h1>Estrategia S&amp;P 500</h1>
 <p class="sub" id="cabecera">Cargando datos…</p>
+<div id="comparacion"></div>
 <div id="mitades"></div>
 <div class="card" id="fondos" hidden>
   <div class="mitad">Fondos en MyInvestor</div>
   <table class="fondos"><thead><tr><th>Para qué</th><th>ISIN</th></tr></thead><tbody id="tabla-fondos"></tbody></table>
-  <p class="nota">Cambia siempre con <b>traspaso</b> de la mitad de la cartera, nunca vendiendo a la cuenta: el traspaso no paga impuestos.</p>
+  <p class="nota">Cambia siempre con <b>traspaso</b> del tercio de la cartera que toque, nunca vendiendo a la cuenta: el traspaso no paga impuestos.</p>
 </div>
 <p style="text-align:center"><button id="recargar">Actualizar</button></p>
+<p class="nota" style="text-align:center"><a href="https://claude.ai/artifact/A2WrfZTghWGtpGg7JMYpPK" target="_blank" rel="noopener">Reglas de la casa</a></p>
 <p class="nota" style="text-align:center">Los datos se descargan solos de Yahoo cada tarde, al cerrar Wall Street, y cada madrugada.</p>
 
 <script>
@@ -79,12 +86,12 @@ function tarjetaMitad(m) {
   const r = m.ultima_revision, h = m.si_hoy_fuera_revision;
   const card = el('div', { class: 'card' });
   card.append(
-    el('div', { class: 'fila' }, el('div', { class: 'mitad' }, `Mitad ${m.mitad}`), el('div', { class: 'regla' }, `Próxima revisión: ${fecha(m.proxima_revision)}`)),
+    el('div', { class: 'fila' }, el('div', { class: 'mitad' }, `Tramo ${m.tramo} (un tercio)`), el('div', { class: 'regla' }, `Próxima revisión: ${fecha(m.proxima_revision)}`)),
     el('div', { class: 'regla' }, m.regla),
     el('div', { class: 'destino' }, m.destino_texto),
   );
   const accion = m.cambio
-    ? el('div', { class: 'accion si' }, `TRASPASO: pasa esta mitad a ${m.destino_texto.toLowerCase()}. Ordénalo el ${fecha(m.fecha_orden)} (señal del ${fecha(r.fecha)}). Si ya lo hiciste, no hagas nada más.`)
+    ? el('div', { class: 'accion si' }, `TRASPASO: pasa este tercio a ${m.destino_texto.toLowerCase()}. Ordénalo el ${fecha(m.fecha_orden)} (señal del ${fecha(r.fecha)}). Si ya lo hiciste, no hagas nada más.`)
     : el('div', { class: 'accion no' }, 'Sin cambios: no hay que hacer nada.');
   card.append(accion);
   if (r.tendencia === 'Bajista' && !r.destino) {
@@ -120,6 +127,85 @@ function tarjetaMitad(m) {
   return card;
 }
 
+// ---- Comparación con el S&P 500 desde la fecha de inicio (guardada solo en este navegador) ----
+const REGLAS = 'https://claude.ai/artifact/A2WrfZTghWGtpGg7JMYpPK';
+function leerInicio() { try { return JSON.parse(localStorage.getItem('inicio') || 'null'); } catch { return null; } }
+function guardarInicio(v) { try { v ? localStorage.setItem('inicio', JSON.stringify(v)) : localStorage.removeItem('inicio'); } catch {} }
+
+// Simula los tres tercios con los valores liquidativos reales y las órdenes de la app.
+// Cada cambio se hace al valor liquidativo del día de la orden (simplificación: sin días fuera de mercado ni costes).
+function simular(e, desde) {
+  const vl = e.valores_liquidativos, F = vl.fechas;
+  const i0 = F.findIndex(f => f >= desde);
+  if (i0 < 0) return null;
+  const tercios = e.tramos.map(t => {
+    const ords = t.ordenes.filter(o => o.fecha_orden);
+    const previas = ords.filter(o => o.fecha_orden <= F[i0]);
+    const fondo = previas.length ? previas.at(-1).destino : 'SP';
+    return { ords: ords.filter(o => o.fecha_orden > F[i0]), fondo, uds: (1 / 3) / vl[fondo][i0] };
+  });
+  const est = [], sp = [];
+  for (let i = i0; i < F.length; i++) {
+    for (const t of tercios) {
+      while (t.ords.length && t.ords[0].fecha_orden <= F[i]) {
+        const o = t.ords.shift();
+        if (o.destino !== t.fondo) { const v = t.uds * vl[t.fondo][i]; t.fondo = o.destino; t.uds = v / vl[t.fondo][i]; }
+      }
+    }
+    est.push(tercios.reduce((s, t) => s + t.uds * vl[t.fondo][i], 0));
+    sp.push(vl.SP[i] / vl.SP[i0]);
+  }
+  const caida = s => { let pico = s[0], peor = 0; for (const x of s) { pico = Math.max(pico, x); peor = Math.min(peor, x / pico - 1); } return peor; };
+  return { inicio: F[i0], fin: F.at(-1), est: est.at(-1) - 1, sp: sp.at(-1) - 1, caidaEst: caida(est), caidaSp: caida(sp),
+           fondos: tercios.map(t => t.fondo) };
+}
+
+function pintarComparacion(e) {
+  const cont = document.getElementById('comparacion');
+  const ini = leerInicio();
+  const card = el('div', { class: 'card' }, el('div', { class: 'mitad' }, 'Desde que empezaste'));
+  const primera = e.valores_liquidativos.fechas[0];
+  const formulario = () => {
+    const f = el('input', { type: 'date', min: primera, max: e.valores_liquidativos.fechas.at(-1), value: ini?.fecha || '' });
+    const imp = el('input', { type: 'number', min: '0', step: '100', placeholder: 'Importe inicial en € (opcional)', value: ini?.importe || '' });
+    const ok = el('button', {}, 'Guardar');
+    ok.addEventListener('click', () => { if (f.value) { guardarInicio({ fecha: f.value, importe: Number(imp.value) || null }); pintarComparacion(e); } });
+    return el('div', { class: 'form' }, el('label', {}, 'Fecha en que empezaste ', f), el('label', {}, imp), ok,
+      el('p', { class: 'nota' }, `Se guarda solo en este móvil. Hay datos de los fondos desde el ${fecha(primera)}.`));
+  };
+  if (!ini) {
+    card.append(el('p', { class: 'nota' }, 'Pon la fecha en que empezaste y la app comparará la estrategia con haber tenido todo en el fondo del S&P 500.'), formulario());
+    cont.replaceChildren(card); return;
+  }
+  const r = simular(e, ini.fecha);
+  if (!r) { card.append(el('p', { class: 'aviso' }, 'No hay datos para esa fecha.'), formulario()); cont.replaceChildren(card); return; }
+  const eur = x => ini.importe ? ` (${fmt(ini.importe * x, 0)} €)` : '';
+  const dif = (r.est - r.sp) * 100;
+  card.append(
+    el('div', { class: 'regla' }, `Del ${fecha(r.inicio)} al ${fecha(r.fin)}`),
+    el('div', { class: 'datos' },
+      dato(pct(r.est * 100), 'Estrategia' + eur(1 + r.est), r.est >= 0 ? 'pos' : 'neg'),
+      dato(pct(r.sp * 100), 'Todo en S&P 500' + eur(1 + r.sp), r.sp >= 0 ? 'pos' : 'neg'),
+      dato((dif > 0 ? '+' : '') + fmt(dif) + ' p.', 'Diferencia', dif >= 0 ? 'pos' : 'neg')),
+    el('div', { class: 'datos' },
+      dato(pct(r.caidaEst * 100), 'Peor caída estrategia', 'neg'),
+      dato(pct(r.caidaSp * 100), 'Peor caída S&P 500', 'neg'),
+      dato(pct((r.caidaEst - r.caidaSp) * 100), 'Caída evitada', r.caidaEst >= r.caidaSp ? 'pos' : 'neg')),
+  );
+  if (dif < 0) {
+    card.append(el('div', { class: 'recordatorio' },
+      el('b', {}, 'Vas por detrás del S&P. Es lo normal. '),
+      'Desde 1999 la estrategia rindió menos que el S&P en 14 de 28 años, y hasta 4 años seguidos. Su ventaja llega de golpe en las grandes caídas (2000-2002 y 2008). Ir por detrás no es motivo para cambiar nada: sigue las ',
+      el('a', { href: REGLAS, target: '_blank', rel: 'noopener' }, 'reglas de la casa'), '.'));
+  }
+  card.append(el('p', { class: 'nota' }, 'Cálculo con los valores liquidativos de los tres fondos y las órdenes de la app, sin costes ni días fuera de mercado. Fondos ahora: ' +
+    r.fondos.map((f, i) => `${'ABC'[i]} ${PARA[f]}`).join(' · ') + '.'));
+  const cambiar = el('button', { class: 'secundario' }, 'Cambiar fecha');
+  cambiar.addEventListener('click', () => { guardarInicio(null); pintarComparacion(e); });
+  card.append(cambiar);
+  cont.replaceChildren(card);
+}
+
 async function cargar() {
   const cab = document.getElementById('cabecera');
   try {
@@ -130,7 +216,8 @@ async function cargar() {
     const dias = (Date.now() - Date.parse(e.ultimo_cierre.fecha)) / 864e5;
     if (dias > 5) cab.append(el('span', { class: 'error' }, ' Los datos tienen más de 5 días: revisa la pestaña Actions de GitHub.'));
     const cont = document.getElementById('mitades');
-    cont.replaceChildren(...e.mitades.map(tarjetaMitad));
+    cont.replaceChildren(...e.tramos.map(tarjetaMitad));
+    pintarComparacion(e);
     const tf = document.getElementById('tabla-fondos');
     tf.replaceChildren(...e.fondos.map(f => el('tr', {}, el('td', {}, `${PARA[f.clave]}: ${f.nombre}`), el('td', {}, f.isin))));
     document.getElementById('fondos').hidden = false;
