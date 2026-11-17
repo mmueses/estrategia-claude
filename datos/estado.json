@@ -1,0 +1,367 @@
+{
+ "generado": "2026-11-17 09:03 UTC",
+ "ultimo_cierre": {
+  "fecha": "2026-11-16",
+  "valor": 7416.59
+ },
+ "mitades": [
+  {
+   "mitad": "A",
+   "regla": "Último día con bolsa abierta de cada mes",
+   "ultima_revision": {
+    "fecha": "2026-10-30",
+    "cierre": 7580.07,
+    "media": 7304.23,
+    "distancia_pct": 3.78,
+    "tendencia": "Alcista",
+    "destino": "SP",
+    "bonos_12m_pct": 0.34,
+    "monetario_12m_pct": 2.23
+   },
+   "revision_anterior": {
+    "fecha": "2026-09-30",
+    "cierre": 7651.54,
+    "media": 7230.78,
+    "distancia_pct": 5.82,
+    "tendencia": "Alcista",
+    "destino": "SP",
+    "bonos_12m_pct": -0.12,
+    "monetario_12m_pct": 2.2
+   },
+   "destino": "SP",
+   "destino_texto": "Fondo S&P 500",
+   "cambio": false,
+   "revision_hoy": false,
+   "proxima_revision": "2026-11-30",
+   "si_hoy_fuera_revision": {
+    "cierre": 7416.59,
+    "media": 7351.99,
+    "distancia_pct": 0.88
+   },
+   "historial": [
+    {
+     "fecha": "2026-10-30",
+     "cierre": 7580.07,
+     "media": 7304.23,
+     "distancia_pct": 3.78,
+     "tendencia": "Alcista",
+     "destino": "SP",
+     "bonos_12m_pct": 0.34,
+     "monetario_12m_pct": 2.23
+    },
+    {
+     "fecha": "2026-09-30",
+     "cierre": 7651.54,
+     "media": 7230.78,
+     "distancia_pct": 5.82,
+     "tendencia": "Alcista",
+     "destino": "SP",
+     "bonos_12m_pct": -0.12,
+     "monetario_12m_pct": 2.2
+    },
+    {
+     "fecha": "2026-08-31",
+     "cierre": 7686.14,
+     "media": 7150.53,
+     "distancia_pct": 7.49,
+     "tendencia": "Alcista",
+     "destino": "SP",
+     "bonos_12m_pct": 0.81,
+     "monetario_12m_pct": 2.18
+    },
+    {
+     "fecha": "2026-07-31",
+     "cierre": 7489.72,
+     "media": 7065.94,
+     "distancia_pct": 6.0,
+     "tendencia": "Alcista",
+     "destino": "SP",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null
+    },
+    {
+     "fecha": "2026-06-30",
+     "cierre": 7499.36,
+     "media": 6985.81,
+     "distancia_pct": 7.35,
+     "tendencia": "Alcista",
+     "destino": "SP",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null
+    },
+    {
+     "fecha": "2026-05-29",
+     "cierre": 7580.06,
+     "media": 6881.9,
+     "distancia_pct": 10.14,
+     "tendencia": "Alcista",
+     "destino": "SP",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null
+    },
+    {
+     "fecha": "2026-04-30",
+     "cierre": 7209.01,
+     "media": 6757.83,
+     "distancia_pct": 6.68,
+     "tendencia": "Alcista",
+     "destino": "SP",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null
+    },
+    {
+     "fecha": "2026-03-31",
+     "cierre": 6528.52,
+     "media": 6657.43,
+     "distancia_pct": -1.94,
+     "tendencia": "Bajista",
+     "destino": null,
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null
+    },
+    {
+     "fecha": "2026-02-27",
+     "cierre": 6878.88,
+     "media": 6595.74,
+     "distancia_pct": 4.29,
+     "tendencia": "Alcista",
+     "destino": "SP",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null
+    },
+    {
+     "fecha": "2026-01-30",
+     "cierre": 6939.03,
+     "media": 6464.76,
+     "distancia_pct": 7.34,
+     "tendencia": "Alcista",
+     "destino": "SP",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null
+    },
+    {
+     "fecha": "2025-12-31",
+     "cierre": 6845.5,
+     "media": 6332.05,
+     "distancia_pct": 8.11,
+     "tendencia": "Alcista",
+     "destino": "SP",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null
+    },
+    {
+     "fecha": "2025-11-28",
+     "cierre": 6849.09,
+     "media": 6242.95,
+     "distancia_pct": 9.71,
+     "tendencia": "Alcista",
+     "destino": "SP",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null
+    },
+    {
+     "fecha": "2025-10-31",
+     "cierre": 6840.2,
+     "media": 6162.09,
+     "distancia_pct": 11.0,
+     "tendencia": "Alcista",
+     "destino": "SP",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null
+    }
+   ]
+  },
+  {
+   "mitad": "B",
+   "regla": "Primer día con bolsa abierta a partir del 15 de cada mes",
+   "ultima_revision": {
+    "fecha": "2026-11-16",
+    "cierre": 7416.59,
+    "media": 7359.22,
+    "distancia_pct": 0.78,
+    "tendencia": "Alcista",
+    "destino": "SP",
+    "bonos_12m_pct": 0.17,
+    "monetario_12m_pct": 2.26
+   },
+   "revision_anterior": {
+    "fecha": "2026-10-15",
+    "cierre": 7744.06,
+    "media": 7312.01,
+    "distancia_pct": 5.91,
+    "tendencia": "Alcista",
+    "destino": "SP",
+    "bonos_12m_pct": -0.04,
+    "monetario_12m_pct": 2.22
+   },
+   "destino": "SP",
+   "destino_texto": "Fondo S&P 500",
+   "cambio": false,
+   "revision_hoy": true,
+   "proxima_revision": "2026-12-15",
+   "si_hoy_fuera_revision": {
+    "cierre": 7416.59,
+    "media": 7359.22,
+    "distancia_pct": 0.78
+   },
+   "historial": [
+    {
+     "fecha": "2026-11-16",
+     "cierre": 7416.59,
+     "media": 7359.22,
+     "distancia_pct": 0.78,
+     "tendencia": "Alcista",
+     "destino": "SP",
+     "bonos_12m_pct": 0.17,
+     "monetario_12m_pct": 2.26
+    },
+    {
+     "fecha": "2026-10-15",
+     "cierre": 7744.06,
+     "media": 7312.01,
+     "distancia_pct": 5.91,
+     "tendencia": "Alcista",
+     "destino": "SP",
+     "bonos_12m_pct": -0.04,
+     "monetario_12m_pct": 2.22
+    },
+    {
+     "fecha": "2026-09-15",
+     "cierre": 7585.73,
+     "media": 7219.25,
+     "distancia_pct": 5.08,
+     "tendencia": "Alcista",
+     "destino": "SP",
+     "bonos_12m_pct": -0.05,
+     "monetario_12m_pct": 2.18
+    },
+    {
+     "fecha": "2026-08-17",
+     "cierre": 7745.06,
+     "media": 7127.92,
+     "distancia_pct": 8.66,
+     "tendencia": "Alcista",
+     "destino": "SP",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null
+    },
+    {
+     "fecha": "2026-07-15",
+     "cierre": 7572.4,
+     "media": 7020.52,
+     "distancia_pct": 7.86,
+     "tendencia": "Alcista",
+     "destino": "SP",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null
+    },
+    {
+     "fecha": "2026-06-15",
+     "cierre": 7554.29,
+     "media": 6924.81,
+     "distancia_pct": 9.09,
+     "tendencia": "Alcista",
+     "destino": "SP",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null
+    },
+    {
+     "fecha": "2026-05-15",
+     "cierre": 7408.5,
+     "media": 6814.36,
+     "distancia_pct": 8.72,
+     "tendencia": "Alcista",
+     "destino": "SP",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null
+    },
+    {
+     "fecha": "2026-04-15",
+     "cierre": 7022.95,
+     "media": 6697.88,
+     "distancia_pct": 4.85,
+     "tendencia": "Alcista",
+     "destino": "SP",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null
+    },
+    {
+     "fecha": "2026-03-16",
+     "cierre": 6699.38,
+     "media": 6598.9,
+     "distancia_pct": 1.52,
+     "tendencia": "Alcista",
+     "destino": "SP",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null
+    },
+    {
+     "fecha": "2026-02-17",
+     "cierre": 6843.22,
+     "media": 6520.65,
+     "distancia_pct": 4.95,
+     "tendencia": "Alcista",
+     "destino": "SP",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null
+    },
+    {
+     "fecha": "2026-01-15",
+     "cierre": 6944.47,
+     "media": 6376.0,
+     "distancia_pct": 8.92,
+     "tendencia": "Alcista",
+     "destino": "SP",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null
+    },
+    {
+     "fecha": "2025-12-15",
+     "cierre": 6816.51,
+     "media": 6249.06,
+     "distancia_pct": 9.08,
+     "tendencia": "Alcista",
+     "destino": "SP",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null
+    },
+    {
+     "fecha": "2025-11-17",
+     "cierre": 6672.41,
+     "media": 6180.37,
+     "distancia_pct": 7.96,
+     "tendencia": "Alcista",
+     "destino": "SP",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null
+    }
+   ]
+  }
+ ],
+ "fondos": [
+  {
+   "clave": "SP",
+   "nombre": "iShares US Equity Index Fund, clase S (EUR)",
+   "isin": "IE000N4ZYX28",
+   "yahoo": "0P0001XF42.F",
+   "ultimo_valor": 12.579,
+   "fecha": "2026-11-13"
+  },
+  {
+   "clave": "BONOS",
+   "nombre": "iShares Global Aggregate 1-5Y Bond Index, cubierto EUR",
+   "isin": "IE0004ZP1ND3",
+   "yahoo": "0P0001W7AI.F",
+   "ultimo_valor": 10.076,
+   "fecha": "2026-11-13"
+  },
+  {
+   "clave": "MONETARIO",
+   "nombre": "AXA IM Euro Liquidity SRI",
+   "isin": "FR0000978371",
+   "yahoo": "0P00000N5G.F",
+   "ultimo_valor": 49733.1445,
+   "fecha": "2026-11-16"
+  }
+ ]
+}

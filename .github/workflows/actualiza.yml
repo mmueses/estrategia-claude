@@ -1,0 +1,46 @@
+name: Actualiza datos
+
+# Descarga de Yahoo el S&P 500 y los tres fondos y recalcula datos/estado.json.
+# - Automática: de lunes a viernes a las 21:47 UTC (después del cierre de Wall Street)
+#   y de martes a sábado a las 05:17 UTC (por si la primera falla).
+# - Manual: pestaña Actions > Actualiza datos > Run workflow (también desde el móvil).
+on:
+  schedule:
+    - cron: '47 21 * * 1-5'
+    - cron: '17 5 * * 2-6'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['descarga.py', 'evalua.py', '.github/workflows/actualiza.yml']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: actualiza
+  cancel-in-progress: false
+
+jobs:
+  actualiza:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements.txt
+      - name: Descargar y evaluar
+        id: bajar
+        continue-on-error: true
+        run: python3 descarga.py
+      - name: Guardar en el repositorio
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add datos
+          git diff --cached --quiet || git commit -m "Datos $(date -u +'%F %H:%M')"
+          git push
+      - name: Marcar en rojo si algún valor falló
+        if: steps.bajar.outcome == 'failure'
+        run: exit 1

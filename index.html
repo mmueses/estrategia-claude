@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Estrategia S&amp;P 500</title>
+<meta name="theme-color" content="#1f5fbf">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icono.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icono-192.png">
+<style>
+  :root { --fg:#1d1d1f; --muted:#6b6b70; --bg:#f5f5f7; --card:#fff; --line:#e3e3e8;
+          --ok:#1e8e3e; --bad:#c5221f; --warn:#b06000; --accent:#1f5fbf; }
+  @media (prefers-color-scheme: dark) {
+    :root { --fg:#f2f2f5; --muted:#a0a0a8; --bg:#111113; --card:#1c1c1f; --line:#2e2e33;
+            --ok:#4cc26a; --bad:#ff6b63; --warn:#f0a040; --accent:#6fa3ff; }
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; background:var(--bg); color:var(--fg);
+         padding:16px 16px calc(24px + env(safe-area-inset-bottom)); max-width:720px; margin-inline:auto; }
+  h1 { font-size:1.35rem; margin:4px 0 2px; }
+  .sub { color:var(--muted); font-size:.85rem; margin:0 0 16px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px; margin-bottom:14px; }
+  .fila { display:flex; justify-content:space-between; gap:12px; align-items:baseline; }
+  .mitad { font-weight:600; font-size:1.05rem; }
+  .regla { color:var(--muted); font-size:.8rem; margin-top:2px; }
+  .destino { font-size:1.5rem; font-weight:700; margin:12px 0 4px; }
+  .accion { padding:10px 12px; border-radius:10px; font-weight:600; margin:10px 0; }
+  .accion.no { background:color-mix(in srgb, var(--ok) 12%, transparent); color:var(--ok); }
+  .accion.si { background:color-mix(in srgb, var(--bad) 14%, transparent); color:var(--bad); }
+  .datos { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:10px; }
+  .dato { background:var(--bg); border-radius:10px; padding:8px; }
+  .dato b { display:block; font-size:1.05rem; font-variant-numeric:tabular-nums; }
+  .dato span { color:var(--muted); font-size:.72rem; }
+  .pos { color:var(--ok); } .neg { color:var(--bad); }
+  .aviso { color:var(--warn); font-size:.85rem; margin-top:8px; }
+  .nota { color:var(--muted); font-size:.82rem; margin-top:8px; line-height:1.4; }
+  details { margin-top:10px; }
+  summary { cursor:pointer; color:var(--accent); font-size:.9rem; }
+  table { width:100%; border-collapse:collapse; font-size:.82rem; font-variant-numeric:tabular-nums; margin-top:8px; }
+  th, td { padding:5px 4px; border-bottom:1px solid var(--line); text-align:right; }
+  th:first-child, td:first-child { text-align:left; }
+  th { color:var(--muted); font-weight:500; }
+  .fondos td:last-child { font-family:ui-monospace,monospace; font-size:.78rem; }
+  button { background:var(--accent); color:#fff; border:0; border-radius:10px; padding:10px 14px; font-size:.95rem; }
+  .error { color:var(--bad); }
+</style>
+</head>
+<body>
+<h1>Estrategia S&amp;P 500</h1>
+<p class="sub" id="cabecera">Cargando datos…</p>
+<div id="mitades"></div>
+<div class="card" id="fondos" hidden>
+  <div class="mitad">Fondos en MyInvestor</div>
+  <table class="fondos"><thead><tr><th>Para qué</th><th>ISIN</th></tr></thead><tbody id="tabla-fondos"></tbody></table>
+  <p class="nota">Cambia siempre con <b>traspaso</b> de la mitad de la cartera, nunca vendiendo a la cuenta: el traspaso no paga impuestos.</p>
+</div>
+<p style="text-align:center"><button id="recargar">Actualizar</button></p>
+<p class="nota" style="text-align:center">Los datos se descargan solos de Yahoo cada tarde, al cerrar Wall Street, y cada madrugada.</p>
+
+<script>
+const fmt = (v, d = 2) => v == null ? '—' : v.toLocaleString('es-ES', { minimumFractionDigits: d, maximumFractionDigits: d });
+const fecha = s => { if (!s) return '—'; const [y, m, d] = s.split('-'); return `${d}/${m}/${y}`; };
+const pct = v => v == null ? '—' : (v > 0 ? '+' : '') + fmt(v) + ' %';
+const PARA = { SP: 'Bolsa (S&P 500)', BONOS: 'Refugio: bonos', MONETARIO: 'Refugio: monetario' };
+
+function el(tag, attrs = {}, ...hijos) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) k === 'class' ? e.className = v : e.setAttribute(k, v);
+  for (const h of hijos) if (h != null) e.append(h instanceof Node ? h : document.createTextNode(String(h)));
+  return e;
+}
+
+function dato(valor, etiqueta, clase) {
+  return el('div', { class: 'dato' }, el('b', clase ? { class: clase } : {}, valor), el('span', {}, etiqueta));
+}
+
+function tarjetaMitad(m) {
+  const r = m.ultima_revision, h = m.si_hoy_fuera_revision;
+  const card = el('div', { class: 'card' });
+  card.append(
+    el('div', { class: 'fila' }, el('div', { class: 'mitad' }, `Mitad ${m.mitad}`), el('div', { class: 'regla' }, `Próxima revisión: ${fecha(m.proxima_revision)}`)),
+    el('div', { class: 'regla' }, m.regla),
+    el('div', { class: 'destino' }, m.destino_texto),
+  );
+  const accion = m.cambio
+    ? el('div', { class: 'accion si' }, `TRASPASO: pasa esta mitad a ${m.destino_texto.toLowerCase()} (señal del ${fecha(r.fecha)}).`)
+    : el('div', { class: 'accion no' }, 'Sin cambios: no hay que hacer nada.');
+  card.append(accion);
+  card.append(el('div', { class: 'regla' }, `Última revisión: ${fecha(r.fecha)}${m.revision_hoy ? ' (con el último cierre)' : ''}`));
+  card.append(el('div', { class: 'datos' },
+    dato(fmt(r.cierre), 'Cierre S&P 500'),
+    dato(fmt(r.media), 'Media 10 cierres'),
+    dato(pct(r.distancia_pct), 'Distancia', r.distancia_pct >= 0 ? 'pos' : 'neg'),
+  ));
+  if (r.tendencia === 'Bajista') {
+    card.append(el('div', { class: 'datos' },
+      dato(pct(r.bonos_12m_pct), 'Bonos 12 meses'),
+      dato(pct(r.monetario_12m_pct), 'Monetario 12 meses'),
+      dato(r.destino === 'BONOS' ? 'Bonos' : r.destino === 'MONETARIO' ? 'Monetario' : 'A mano', 'Refugio elegido'),
+    ));
+  }
+  const margen = h.distancia_pct;
+  card.append(el('p', { class: 'nota' }, `Si hoy fuera revisión: cierre ${fmt(h.cierre)} frente a media ${fmt(h.media)} (${pct(margen)}).`));
+  if (Math.abs(margen) < 2) {
+    card.append(el('p', { class: 'aviso' }, `Atención: el índice está a menos de un 2 % de la media; la próxima revisión puede cambiar la señal.`));
+  }
+  const tbody = el('tbody');
+  for (const f of m.historial) {
+    tbody.append(el('tr', {},
+      el('td', {}, fecha(f.fecha)), el('td', {}, fmt(f.cierre)), el('td', {}, fmt(f.media)),
+      el('td', { class: (f.distancia_pct ?? 0) >= 0 ? 'pos' : 'neg' }, pct(f.distancia_pct)),
+      el('td', {}, f.destino === 'SP' ? 'S&P' : f.destino === 'BONOS' ? 'Bonos' : f.destino === 'MONETARIO' ? 'Monet.' : '—')));
+  }
+  card.append(el('details', {}, el('summary', {}, 'Últimas revisiones'),
+    el('table', {}, el('thead', {}, el('tr', {}, el('th', {}, 'Fecha'), el('th', {}, 'Cierre'), el('th', {}, 'Media'), el('th', {}, 'Dist.'), el('th', {}, 'Dónde'))), tbody)));
+  return card;
+}
+
+async function cargar() {
+  const cab = document.getElementById('cabecera');
+  try {
+    const r = await fetch('datos/estado.json?t=' + Date.now(), { cache: 'no-store' });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const e = await r.json();
+    cab.textContent = `Último cierre del S&P 500: ${fmt(e.ultimo_cierre.valor)} (${fecha(e.ultimo_cierre.fecha)}). Datos de ${e.generado}.`;
+    const dias = (Date.now() - Date.parse(e.ultimo_cierre.fecha)) / 864e5;
+    if (dias > 5) cab.append(el('span', { class: 'error' }, ' Los datos tienen más de 5 días: revisa la pestaña Actions de GitHub.'));
+    const cont = document.getElementById('mitades');
+    cont.replaceChildren(...e.mitades.map(tarjetaMitad));
+    const tf = document.getElementById('tabla-fondos');
+    tf.replaceChildren(...e.fondos.map(f => el('tr', {}, el('td', {}, `${PARA[f.clave]}: ${f.nombre}`), el('td', {}, f.isin))));
+    document.getElementById('fondos').hidden = false;
+  } catch (err) {
+    cab.replaceChildren(el('span', { class: 'error' }, 'No se pudieron cargar los datos (' + err.message + ').'));
+  }
+}
+
+document.getElementById('recargar').addEventListener('click', cargar);
+cargar();
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+</script>
+</body>
+</html>
