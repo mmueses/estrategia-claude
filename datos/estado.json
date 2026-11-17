@@ -1,8 +1,8 @@
 {
- "generado": "2026-11-17 17:21 UTC",
+ "generado": "2026-11-17 19:54 UTC",
  "ultimo_cierre": {
   "fecha": "2026-11-17",
-  "valor": 7358.34
+  "valor": 7316.04
  },
  "tramos": [
   {
@@ -37,9 +37,9 @@
    "revision_hoy": false,
    "proxima_revision": "2026-11-30",
    "si_hoy_fuera_revision": {
-    "cierre": 7358.34,
-    "media": 7346.16,
-    "distancia_pct": 0.17
+    "cierre": 7316.04,
+    "media": 7341.93,
+    "distancia_pct": -0.35
    },
    "historial": [
     {
@@ -306,9 +306,9 @@
    "revision_hoy": false,
    "proxima_revision": "2026-12-10",
    "si_hoy_fuera_revision": {
-    "cierre": 7358.34,
-    "media": 7388.49,
-    "distancia_pct": -0.41
+    "cierre": 7316.04,
+    "media": 7384.26,
+    "distancia_pct": -0.92
    },
    "historial": [
     {
@@ -580,9 +580,9 @@
    "revision_hoy": false,
    "proxima_revision": "2026-11-20",
    "si_hoy_fuera_revision": {
-    "cierre": 7358.34,
-    "media": 7335.09,
-    "distancia_pct": 0.32
+    "cierre": 7316.04,
+    "media": 7330.86,
+    "distancia_pct": -0.2
    },
    "historial": [
     {
