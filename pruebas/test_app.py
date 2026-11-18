@@ -3,6 +3,8 @@
 - A1: una fila de hoy con la bolsa de Nueva York abierta no cuenta como cierre de revisión.
 - A1: si el resultado de una revisión ya avisada cambia, sale un aviso «CORRECCIÓN».
 - A2: si falta el cierre de un día de revisión, la revisión pasa al siguiente día con cierre.
+- L6: si un aviso no sale, se reintenta y la tarea sale en rojo.
+- L7: el aviso de una revisión aplazada pide comprobarla en ProRealTime.
 """
 import json
 import os
@@ -111,6 +113,39 @@ class Correccion(unittest.TestCase):
         self.assertEqual(enviados[0][0], 'Tramo C: sin cambios')
         self.assertTrue(enviados[1][0].startswith('CORRECCIÓN'))
         self.assertEqual(enviados[1][1], 5)
+
+
+class AvisoFallido(unittest.TestCase):
+    estado = Correccion.estado
+
+    def test_fallo_de_ntfy_marca_rojo_y_reintenta(self):
+        tmp = tempfile.mkdtemp()
+        original = avisa.enviar
+        os.environ['NTFY_TOPIC'] = 'tema-de-prueba'
+
+        def falla(*a, **k):
+            raise OSError('ntfy caído')
+        try:
+            json.dump(self.estado('SP', False), open(f'{tmp}/estado.json', 'w'))
+            avisa.enviar = falla
+            fallos = avisa.main(tmp)
+            guardados = json.load(open(f'{tmp}/avisos.json'))
+            avisa.enviar = lambda *a, **k: True
+            fallos2 = avisa.main(tmp)
+        finally:
+            avisa.enviar = original
+            del os.environ['NTFY_TOPIC']
+            shutil.rmtree(tmp)
+        self.assertEqual(len(fallos), 1)
+        self.assertEqual(guardados, {})
+        self.assertEqual(fallos2, [])
+
+    def test_aplazada_pide_prorealtime(self):
+        e = self.estado('SP', False)
+        e['tramos'][0]['ultima_revision']['aplazada_desde'] = '2026-10-20'
+        hoy = pd.Timestamp(e['ultimo_cierre']['fecha'])
+        mensaje = avisa.avisos(e, hoy)[0][2]
+        self.assertIn('comprueba en ProRealTime', mensaje)
 
 
 class RevisionSinCierre(unittest.TestCase):

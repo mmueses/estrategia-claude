@@ -9,6 +9,7 @@ Avisa de:
 Cada aviso se envía una sola vez: los ya enviados se guardan en datos/avisos.json.
 La clave del aviso de una revisión lleva el destino: si el resultado de una revisión ya avisada
 cambia (por ejemplo, Yahoo corrige el cierre), sale un aviso nuevo «CORRECCIÓN» con prioridad máxima.
+Si un aviso no se puede enviar, se reintenta en la siguiente ejecución y la tarea de GitHub sale en rojo.
 El tema de ntfy va en el secreto NTFY_TOPIC del repositorio; sin él no se envía nada.
 
 Uso: python3 avisa.py [carpeta_datos] [--prueba]
@@ -70,7 +71,7 @@ def avisos(estado, hoy):
         r = t['ultima_revision']
         if t['revision_hoy']:
             clave = f"rev-{t['tramo']}-{r['fecha']}-{t['destino'] or 'REFUGIO'}"
-            nota = (f" (Aplazada: el {fecha(r['aplazada_desde'])} no hubo cierre del índice.)"
+            nota = (f" (Aplazada: el {fecha(r['aplazada_desde'])} no hubo cierre del índice: comprueba en ProRealTime que ese día no hubo sesión.)"
                     if r.get('aplazada_desde') else '')
             if t['cambio']:
                 out.append((clave, f"TRASPASO tramo {t['tramo']}",
@@ -100,6 +101,7 @@ def main(carpeta='datos', prueba=False):
     ruta = f'{carpeta}/avisos.json'
     enviados = json.load(open(ruta, encoding='utf-8')) if os.path.exists(ruta) else {}
     hoy = pd.Timestamp(datetime.now(timezone.utc).date())
+    fallos = []
     for clave, titulo, mensaje, prio, tags in avisos(estado, hoy):
         if clave in enviados:
             continue
@@ -110,16 +112,23 @@ def main(carpeta='datos', prueba=False):
                 titulo, prio, tags = f'CORRECCIÓN: {titulo}', 5, ['warning']
                 mensaje = 'El resultado de esta revisión ha cambiado; olvida el aviso anterior. ' + mensaje
         try:
-            if enviar(topic, titulo, mensaje, prio, tags) and topic:
-                enviados[clave] = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')
+            ok = enviar(topic, titulo, mensaje, prio, tags)
         except Exception as e:  # un fallo de ntfy no debe parar la actualización de datos
             print('No se pudo enviar', clave, e)
+            ok = False
+        if ok and topic:
+            enviados[clave] = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')
+        elif not ok:
+            fallos.append(clave)
     # Solo se guardan los últimos 200 avisos
     enviados = dict(sorted(enviados.items(), key=lambda kv: kv[1])[-200:])
     with open(ruta, 'w', encoding='utf-8') as fh:
         json.dump(enviados, fh, ensure_ascii=False, indent=1)
+    # Si algún aviso no salió, la tarea de GitHub se marca en rojo (se reintenta en la siguiente ejecución)
+    return fallos
 
 
 if __name__ == '__main__':
     args = [a for a in sys.argv[1:] if not a.startswith('--')]
-    main(args[0] if args else 'datos', '--prueba' in sys.argv)
+    if main(args[0] if args else 'datos', '--prueba' in sys.argv):
+        sys.exit(1)

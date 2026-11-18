@@ -43,6 +43,7 @@ jobs:
         continue-on-error: true
         run: python3 descarga.py
       - name: Avisos al móvil (ntfy)
+        id: avisos
         continue-on-error: true
         env:
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
@@ -59,6 +60,6 @@ jobs:
           # Por si alguien ha subido un cambio mientras corría la tarea
           git pull --rebase
           git push
-      - name: Marcar en rojo si algún valor falló
-        if: steps.bajar.outcome == 'failure'
+      - name: Marcar en rojo si algún valor o algún aviso falló
+        if: steps.bajar.outcome == 'failure' || steps.avisos.outcome == 'failure'
         run: exit 1
