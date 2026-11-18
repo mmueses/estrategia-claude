@@ -7,7 +7,7 @@ En Android, ábrela con Chrome y pulsa ⋮ > **Añadir a pantalla de inicio** (o
 
 ## Reglas
 
-- La cartera va en tres tramos iguales (tercios), en fondos de MyInvestor (los traspasos entre fondos no pagan impuestos en Navarra). Desde el 17-11-2026; antes eran dos mitades (días fin de mes y 15).
+- La cartera va en tres tramos iguales (tercios), en fondos de MyInvestor (los traspasos entre fondos no tributan hasta el reembolso). Desde el 17-11-2026; antes eran dos mitades (días fin de mes y 15).
 - **Tramo A:** se revisa el último día con bolsa abierta en Nueva York de cada mes.
 - **Tramo B:** se revisa el primer día con bolsa abierta a partir del día 10 de cada mes.
 - **Tramo C:** se revisa el primer día con bolsa abierta a partir del día 20 de cada mes.
