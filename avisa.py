@@ -7,6 +7,8 @@ Avisa de:
 - Si los datos llevan más de 4 días sin actualizarse.
 
 Cada aviso se envía una sola vez: los ya enviados se guardan en datos/avisos.json.
+La clave del aviso de una revisión lleva el destino: si el resultado de una revisión ya avisada
+cambia (por ejemplo, Yahoo corrige el cierre), sale un aviso nuevo «CORRECCIÓN» con prioridad máxima.
 El tema de ntfy va en el secreto NTFY_TOPIC del repositorio; sin él no se envía nada.
 
 Uso: python3 avisa.py [carpeta_datos] [--prueba]
@@ -67,15 +69,18 @@ def avisos(estado, hoy):
     for t in estado['tramos']:
         r = t['ultima_revision']
         if t['revision_hoy']:
+            clave = f"rev-{t['tramo']}-{r['fecha']}-{t['destino'] or 'REFUGIO'}"
+            nota = (f" (Aplazada: el {fecha(r['aplazada_desde'])} no hubo cierre del índice.)"
+                    if r.get('aplazada_desde') else '')
             if t['cambio']:
-                out.append((f"rev-{t['tramo']}-{r['fecha']}", f"TRASPASO tramo {t['tramo']}",
+                out.append((clave, f"TRASPASO tramo {t['tramo']}",
                             f"Revisión del {fecha(r['fecha'])}: cierre {num(r['cierre'])} frente a media {num(r['media'])} "
                             f"({pct(r['distancia_pct'])}). Ordena el {fecha(t['fecha_orden'])} en MyInvestor el traspaso "
-                            f"de este tercio a: {t['destino_texto']}.", 5, ['rotating_light']))
+                            f"de este tercio a: {t['destino_texto']}.{nota}", 5, ['rotating_light']))
             else:
-                out.append((f"rev-{t['tramo']}-{r['fecha']}", f"Tramo {t['tramo']}: sin cambios",
+                out.append((clave, f"Tramo {t['tramo']}: sin cambios",
                             f"Revisión del {fecha(r['fecha'])}: cierre {num(r['cierre'])} frente a media {num(r['media'])} "
-                            f"({pct(r['distancia_pct'])}). Sigue en {t['destino_texto'].lower()}. No hay que hacer nada.",
+                            f"({pct(r['distancia_pct'])}). Sigue en {t['destino_texto'].lower()}. No hay que hacer nada.{nota}",
                             4, ['white_check_mark']))
         prox = t['proxima_revision']
         d = t['si_hoy_fuera_revision']['distancia_pct']
@@ -98,6 +103,12 @@ def main(carpeta='datos', prueba=False):
     for clave, titulo, mensaje, prio, tags in avisos(estado, hoy):
         if clave in enviados:
             continue
+        if clave.startswith('rev-'):
+            # Misma revisión ya avisada con otro resultado: corrección
+            base = clave.rsplit('-', 1)[0] + '-'
+            if any(k.startswith(base) for k in enviados):
+                titulo, prio, tags = f'CORRECCIÓN: {titulo}', 5, ['warning']
+                mensaje = 'El resultado de esta revisión ha cambiado; olvida el aviso anterior. ' + mensaje
         try:
             if enviar(topic, titulo, mensaje, prio, tags) and topic:
                 enviados[clave] = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')
