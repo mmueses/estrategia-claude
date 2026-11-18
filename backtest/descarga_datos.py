@@ -12,6 +12,7 @@ import os
 import subprocess
 import sys
 import tempfile
+import time
 
 import yfinance as yf
 
@@ -19,6 +20,14 @@ d = sys.argv[1] if len(sys.argv) > 1 else 'datos_bt'
 os.makedirs(d, exist_ok=True)
 t = ['^GSPC', '^IRX', 'VFINX', 'VGTSX', 'VEURX', 'VEIEX', 'VBMFX', 'VBISX']
 px = yf.download(t, start='1997-01-01', progress=False, auto_adjust=False)['Adj Close'][t]
+for tk in [c for c in t if px[c].notna().sum() < 1000]:
+    # Yahoo a veces devuelve una serie vacía sin dar error (pasó con VBISX el 18-11-2026): se reintenta sola
+    time.sleep(15)
+    x = yf.download(tk, start='1997-01-01', progress=False, auto_adjust=False, multi_level_index=False)['Adj Close']
+    px[tk] = x.reindex(px.index)
+vacias = [c for c in t if px[c].notna().sum() < 1000]
+if vacias:
+    sys.exit(f'Yahoo no ha devuelto datos de {vacias}: vuelve a ejecutarlo dentro de un rato (las cifras saldrían mal).')
 px.to_csv(f'{d}/px2.csv')
 for tk in ['^GSPC', '^NDX', '^IRX']:
     x = yf.download(tk, start='1985-01-01', progress=False, auto_adjust=False, multi_level_index=False)

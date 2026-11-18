@@ -8,14 +8,25 @@ import sys
 
 import numpy as np
 import pandas as pd
+import pandas_market_calendars as mcal
 
 from data import load, FIN
 from estrategias import buy_hold, dia_n, fin_de_mes, media_movil_refugio_dinamico
 from sim import metricas, simular
 
 
+def meses_completos(idx):
+    """Quita el último mes si aún no ha terminado (su último día con bolsa abierta es posterior al último dato)."""
+    ultimo = idx[-1]
+    sig = mcal.get_calendar('NYSE').valid_days(ultimo + pd.Timedelta(days=1), ultimo + pd.Timedelta(days=10))
+    if len(sig) and sig[0].tz_localize(None).to_period('M') == ultimo.to_period('M'):
+        return idx[idx < ultimo.to_period('M').start_time]
+    return idx
+
+
 def tramos(sig, idx, desfase=0):
-    dA = fin_de_mes(idx[idx < '2026-11-01'], desfase)
+    # El tramo A solo cuenta meses terminados: así, al cambiar FIN en data.py no hay que tocar nada más
+    dA = fin_de_mes(meses_completos(idx), desfase)
     # Como final.py del motor original: fin de mes k días hábiles antes; días 10 y 20, k días naturales después
     return [dA, dia_n(idx, 10 + desfase), dia_n(idx, 20 + desfase)]
 
