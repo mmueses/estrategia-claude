@@ -98,6 +98,9 @@ function tarjetaMitad(m) {
     card.append(el('p', { class: 'aviso' }, 'Faltan datos de los fondos para elegir refugio: mira en MyInvestor la rentabilidad a 12 meses del fondo de bonos y del monetario y elige el que más haya ganado.'));
   }
   card.append(el('div', { class: 'regla' }, `Última revisión: ${fecha(r.fecha)}${m.revision_hoy ? ' (con el último cierre)' : ''}`));
+  if (r.aplazada_desde) {
+    card.append(el('p', { class: 'aviso' }, `Revisión aplazada: el ${fecha(r.aplazada_desde)} no hubo cierre del S&P 500 en los datos, así que se ha hecho con el cierre del ${fecha(r.fecha)}. Compruébalo en ProRealTime.`));
+  }
   card.append(el('div', { class: 'datos' },
     dato(fmt(r.cierre), 'Cierre S&P 500'),
     dato(fmt(r.media), 'Media 10 cierres'),
@@ -120,7 +123,7 @@ function tarjetaMitad(m) {
   const tbody = el('tbody');
   for (const f of m.historial) {
     tbody.append(el('tr', {},
-      el('td', {}, fecha(f.fecha)), el('td', {}, fmt(f.cierre)), el('td', {}, fmt(f.media)),
+      el('td', {}, fecha(f.fecha) + (f.aplazada_desde ? ' *' : '')), el('td', {}, fmt(f.cierre)), el('td', {}, fmt(f.media)),
       el('td', { class: (f.distancia_pct ?? 0) >= 0 ? 'pos' : 'neg' }, pct(f.distancia_pct)),
       el('td', {}, f.destino === 'SP' ? 'S&P' : f.destino === 'BONOS' ? 'Bonos' : f.destino === 'MONETARIO' ? 'Monet.' : f.tendencia === 'Bajista' ? 'Refugio' : '—')));
   }

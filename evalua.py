@@ -11,6 +11,8 @@ Reglas (desde el 17-11-2026, 3 tramos; backtest del proyecto, fases 1 y 2 del pl
 - Refugio: bonos si la rentabilidad del fondo de bonos en las 12 últimas revisiones de ese tramo
   supera a la del monetario; si no, monetario.
 - La orden de traspaso se da el día siguiente a la revisión.
+- Si un día de revisión del calendario no tiene cierre del índice, la revisión pasa al siguiente
+  día con cierre (y se indica en "aplazada_desde").
 
 Uso: python3 evalua.py [carpeta_datos]
 """
@@ -58,6 +60,25 @@ def fechas_revision(dias, dia):
     return pd.DatetimeIndex(out)
 
 
+def revisiones_hechas(cierres_idx, dias_cal, dia):
+    """Revisiones ya pasadas de un tramo, con los días que de verdad tienen cierre.
+
+    Cada fecha del calendario NYSE hasta el último cierre; si ese día no hay cierre del índice
+    (cierre imprevisto, hueco de Yahoo), la revisión pasa al siguiente día con cierre.
+    Devuelve [(fecha_real, fecha_calendario)].
+    """
+    ultimo = cierres_idx[-1]
+    cal = fechas_revision(dias_cal, dia)
+    out = []
+    for f in cal[cal <= ultimo]:
+        k = cierres_idx.searchsorted(f)
+        real = cierres_idx[k]
+        if out and real <= out[-1][0]:
+            continue
+        out.append((real, f))
+    return out
+
+
 def valor_en(serie, fecha):
     s = serie.loc[:fecha]
     return float(s.iloc[-1]) if len(s) else None
@@ -67,9 +88,9 @@ def revisiones_tramo(dia, spx, fondos, dias_todos):
     """Todas las revisiones hechas del tramo, con su tendencia, destino y día de la orden."""
     ultimo = spx.index[-1]
     revisiones = fechas_revision(dias_todos, dia)
-    hechas = revisiones[revisiones <= ultimo]
-    # Solo cuentan las revisiones con cierre de ese mismo día
-    hechas = pd.DatetimeIndex([f for f in hechas if f in spx.index])
+    pares = revisiones_hechas(spx.index, dias_todos, dia)
+    hechas = pd.DatetimeIndex([r for r, _ in pares])
+    aplazadas = {r: f for r, f in pares if r != f}
     cierres = spx.loc[hechas]
     media = cierres.rolling(N_MEDIA).mean()
     filas = []
@@ -94,7 +115,8 @@ def revisiones_tramo(dia, spx, fondos, dias_todos):
                           tendencia=tendencia, destino=destino,
                           bonos_12m_pct=None if rb is None else round(rb * 100, 2),
                           monetario_12m_pct=None if rm is None else round(rm * 100, 2),
-                          fecha_orden=siguientes[0].strftime('%Y-%m-%d') if len(siguientes) else None))
+                          fecha_orden=siguientes[0].strftime('%Y-%m-%d') if len(siguientes) else None,
+                          aplazada_desde=aplazadas[f].strftime('%Y-%m-%d') if f in aplazadas else None))
     return hechas, cierres, revisiones, filas
 
 

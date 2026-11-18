@@ -2,6 +2,7 @@
 
 - A1: una fila de hoy con la bolsa de Nueva York abierta no cuenta como cierre de revisión.
 - A1: si el resultado de una revisión ya avisada cambia, sale un aviso «CORRECCIÓN».
+- A2: si falta el cierre de un día de revisión, la revisión pasa al siguiente día con cierre.
 """
 import json
 import os
@@ -110,6 +111,25 @@ class Correccion(unittest.TestCase):
         self.assertEqual(enviados[0][0], 'Tramo C: sin cambios')
         self.assertTrue(enviados[1][0].startswith('CORRECCIÓN'))
         self.assertEqual(enviados[1][1], 5)
+
+
+class RevisionSinCierre(unittest.TestCase):
+    def revisiones(self, quitar):
+        spx = evalua.leer('datos', '^GSPC')
+        spx = spx[spx.index <= '2026-11-17']
+        spx = spx.drop(pd.Timestamp(quitar))
+        dias = evalua.dias_bolsa(spx.index[0], pd.Timestamp('2027-02-01'))
+        return {dia: evalua.revisiones_tramo(dia, spx, None, dias)[3] for dia in ('fin', 10, 20)}
+
+    def test_dia_20_sin_cierre(self):
+        filas = self.revisiones('2026-10-20')[20]
+        f = next(x for x in filas if x['fecha'].startswith('2026-10'))
+        self.assertEqual((f['fecha'], f['aplazada_desde']), ('2026-10-21', '2026-10-20'))
+
+    def test_fin_de_mes_sin_cierre(self):
+        filas = self.revisiones('2026-10-30')['fin']
+        f = next(x for x in filas if x['aplazada_desde'] == '2026-10-30')
+        self.assertEqual(f['fecha'], '2026-11-02')
 
 
 if __name__ == '__main__':
