@@ -46,8 +46,9 @@ jobs:
         continue-on-error: true
         env:
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          PRUEBA: ${{ inputs.prueba }}
         run: |
-          if [ "${{ inputs.prueba }}" = "true" ]; then python3 avisa.py datos --prueba; fi
+          if [ "$PRUEBA" = "true" ]; then python3 avisa.py datos --prueba; fi
           python3 avisa.py datos
       - name: Guardar en el repositorio
         run: |
@@ -55,6 +56,8 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add datos
           git diff --cached --quiet || git commit -m "Datos $(date -u +'%F %H:%M')"
+          # Por si alguien ha subido un cambio mientras corría la tarea
+          git pull --rebase
           git push
       - name: Marcar en rojo si algún valor falló
         if: steps.bajar.outcome == 'failure'
