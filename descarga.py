@@ -1,4 +1,4 @@
-"""Descarga de Yahoo los cierres del S&P 500, del Nasdaq-100 y de los fondos, y recalcula datos/estado.json.
+"""Descarga de Yahoo los cierres del S&P 500 y de los tres fondos, y recalcula datos/estado.json.
 
 Si un valor falla, se conserva su última copia buena y el programa termina con error
 (la tarea de GitHub sale en rojo), pero el estado se recalcula con lo que haya.
@@ -10,10 +10,10 @@ import time
 import pandas as pd
 import yfinance as yf
 
-from evalua import FONDOS, INDICES, main as evaluar
+from evalua import FONDOS, main as evaluar
 
 CARPETA = 'datos'
-TICKERS = {v[0]: '2y' for v in INDICES.values()} | {v['yahoo']: '2y' for v in FONDOS.values()}
+TICKERS = {'^GSPC': '2y'} | {v['yahoo']: '2y' for v in FONDOS.values()}
 
 
 def bajar(ticker, periodo):

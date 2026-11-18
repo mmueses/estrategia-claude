@@ -1,8 +1,8 @@
 """Avisos al móvil con ntfy (https://ntfy.sh) a partir de datos/estado.json.
 
 Avisa de:
-- El resultado de cada revisión de cada bloque (S&P A, B, C y Nasdaq A, B, C), en cuanto la app
-  tiene el cierre de ese día: "TRASPASO" (prioridad alta) o "sin cambios".
+- El resultado de cada revisión, en cuanto la app tiene el cierre de ese día:
+  "TRASPASO" (prioridad alta) o "sin cambios".
 - La víspera de una revisión, si ese tramo está a menos de un 1 % de su media.
 - Si los datos llevan más de 4 días sin actualizarse.
 
@@ -57,37 +57,31 @@ def siguiente_dia_bolsa(dia):
 def avisos(estado, hoy):
     """Lista de (clave, título, mensaje, prioridad, etiquetas)."""
     out = []
-    cierres = estado.get('ultimos_cierres') or {'SP': dict(nombre='S&P 500', **estado['ultimo_cierre'])}
-    viejos = [c for c in cierres.values() if (hoy - pd.Timestamp(c['fecha'])).days > DIAS_VIEJO]
-    if viejos:
-        c = min(viejos, key=lambda c: c['fecha'])
-        out.append((f"viejo-{c['fecha']}", 'La app no se actualiza',
-                    f"El último cierre del {c['nombre']} es del {fecha(c['fecha'])}. "
+    ultimo = pd.Timestamp(estado['ultimo_cierre']['fecha'])
+    if (hoy - ultimo).days > DIAS_VIEJO:
+        out.append((f"viejo-{estado['ultimo_cierre']['fecha']}", 'La app no se actualiza',
+                    f"El último cierre del S&P 500 es del {fecha(estado['ultimo_cierre']['fecha'])}. "
                     'Si hoy hay revisión, compruébala a mano (reglas de la casa, "Si algo falla").', 4, ['warning']))
         return out
-    ultimo = pd.Timestamp(estado['ultimo_cierre']['fecha'])
     manana = siguiente_dia_bolsa(ultimo)
     for t in estado['tramos']:
-        nom = t.get('nombre', f"tramo {t['tramo']}")
-        indice = t.get('indice_nombre', 'S&P 500')
-        clave = t['tramo'] if t.get('indice', 'SP') == 'SP' else f"{t['indice']}-{t['tramo']}"  # claves únicas por bloque
         r = t['ultima_revision']
         if t['revision_hoy']:
             if t['cambio']:
-                out.append((f"rev-{clave}-{r['fecha']}", f"TRASPASO {nom}",
-                            f"Revisión del {fecha(r['fecha'])}: {indice} {num(r['cierre'])} frente a media {num(r['media'])} "
+                out.append((f"rev-{t['tramo']}-{r['fecha']}", f"TRASPASO tramo {t['tramo']}",
+                            f"Revisión del {fecha(r['fecha'])}: cierre {num(r['cierre'])} frente a media {num(r['media'])} "
                             f"({pct(r['distancia_pct'])}). Ordena el {fecha(t['fecha_orden'])} en MyInvestor el traspaso "
-                            f"de este bloque (un sexto de la cartera) a: {t['destino_texto']}.", 5, ['rotating_light']))
+                            f"de este tercio a: {t['destino_texto']}.", 5, ['rotating_light']))
             else:
-                out.append((f"rev-{clave}-{r['fecha']}", f"{nom}: sin cambios",
-                            f"Revisión del {fecha(r['fecha'])}: {indice} {num(r['cierre'])} frente a media {num(r['media'])} "
-                            f"({pct(r['distancia_pct'])}). Sigue en {t['destino_texto'][0].lower() + t['destino_texto'][1:]}. No hay que hacer nada.",
+                out.append((f"rev-{t['tramo']}-{r['fecha']}", f"Tramo {t['tramo']}: sin cambios",
+                            f"Revisión del {fecha(r['fecha'])}: cierre {num(r['cierre'])} frente a media {num(r['media'])} "
+                            f"({pct(r['distancia_pct'])}). Sigue en {t['destino_texto'].lower()}. No hay que hacer nada.",
                             4, ['white_check_mark']))
         prox = t['proxima_revision']
         d = t['si_hoy_fuera_revision']['distancia_pct']
         if prox and pd.Timestamp(prox) == manana and abs(d) < UMBRAL_CERCA:
-            out.append((f"cerca-{clave}-{prox}", f"Mañana se revisa {nom}",
-                        f"Con el cierre de hoy, el {indice} estaría a {pct(d)} de su media: puede haber traspaso. "
+            out.append((f"cerca-{t['tramo']}-{prox}", f"Mañana se revisa el tramo {t['tramo']}",
+                        f"Con el cierre de hoy estaría a {pct(d)} de su media: puede haber traspaso. "
                         f"Mira la app mañana {fecha(prox)} por la noche.", 4, ['eyes']))
     return out
 

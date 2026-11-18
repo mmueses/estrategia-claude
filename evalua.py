@@ -1,16 +1,13 @@
 """Evalúa la estrategia con los datos de la carpeta datos/ y escribe datos/estado.json.
 
-Reglas (desde el 18-11-2026: mitad S&P 500 y mitad Nasdaq-100, cada una con su propia señal y 3 tramos;
-backtest del proyecto, fases 1 y 2 del plan de mejora y claude/otros-indices-2026-11-17.md):
-- La cartera va en 6 bloques iguales (sextos): 3 tramos del S&P 500 y 3 del Nasdaq-100.
-  Copia de la versión solo S&P 500: rama solo-sp500 del repositorio.
-- Cada índice tiene 3 tramos:
+Reglas (desde el 17-11-2026, 3 tramos; backtest del proyecto, fases 1 y 2 del plan de mejora):
+- La cartera va en 3 tramos iguales (tercios):
   - Tramo A: se revisa el último día con bolsa abierta en Nueva York de cada mes.
   - Tramo B: se revisa el primer día con bolsa abierta a partir del día 10 de cada mes.
   - Tramo C: se revisa el primer día con bolsa abierta a partir del día 20 de cada mes.
-- En su fecha, cada tramo compara el cierre de su índice (^GSPC o ^NDX) con la media de sus
+- En su fecha, cada tramo compara el cierre del índice S&P 500 (^GSPC) con la media de sus
   10 últimos cierres de revisión (el de hoy y los 9 anteriores de ese mismo tramo).
-  Por encima: el fondo de ese índice. Por debajo: refugio.
+  Por encima: fondo S&P 500. Por debajo: refugio.
 - Refugio: bonos si la rentabilidad del fondo de bonos en las 12 últimas revisiones de ese tramo
   supera a la del monetario; si no, monetario.
 - La orden de traspaso se da el día siguiente a la revisión.
@@ -28,12 +25,8 @@ FONDOS = {
     'SP': {'nombre': 'iShares US Index Fund (IE), clase S Acc EUR', 'isin': 'IE000N4ZYX28', 'yahoo': '0P0001XF42.F'},
     'BONOS': {'nombre': 'iShares Global Aggregate 1-5Y Bond Index, cubierto EUR', 'isin': 'IE0004ZP1ND3', 'yahoo': '0P0001W7AI.F'},
     'MONETARIO': {'nombre': 'AXA IM Euro Liquidity SRI', 'isin': 'FR0000978371', 'yahoo': '0P00000N5G.F'},
-    'NASDAQ': {'nombre': 'MyInvestor Nasdaq 100 FI', 'isin': 'ES0165265002', 'yahoo': '0P0001MRGW.F'},
 }
-NOMBRE_DESTINO = {'SP': 'Fondo S&P 500', 'NASDAQ': 'Fondo Nasdaq-100', 'BONOS': 'Fondo de bonos', 'MONETARIO': 'Fondo monetario',
-                  None: 'Refugio (comprobar a mano)'}
-# Índices: clave -> (ticker de Yahoo, nombre, fondo cuando la señal es alcista)
-INDICES = {'SP': ('^GSPC', 'S&P 500', 'SP'), 'NDX': ('^NDX', 'Nasdaq-100', 'NASDAQ')}
+NOMBRE_DESTINO = {'SP': 'Fondo S&P 500', 'BONOS': 'Fondo de bonos', 'MONETARIO': 'Fondo monetario', None: 'Refugio (comprobar a mano)'}
 # (nombre, día de revisión: 'fin' = último día con bolsa abierta del mes; n = primer día con bolsa abierta desde el día n)
 TRAMOS = [('A', 'fin'), ('B', 10), ('C', 20)]
 REGLA = {'fin': 'Último día con bolsa abierta de cada mes'} | {n: f'Primer día con bolsa abierta a partir del día {n} de cada mes' for n in (10, 20)}
@@ -70,7 +63,7 @@ def valor_en(serie, fecha):
     return float(s.iloc[-1]) if len(s) else None
 
 
-def revisiones_tramo(dia, spx, fondos, dias_todos, fondo_bolsa='SP'):
+def revisiones_tramo(dia, spx, fondos, dias_todos):
     """Todas las revisiones hechas del tramo, con su tendencia, destino y día de la orden."""
     ultimo = spx.index[-1]
     revisiones = fechas_revision(dias_todos, dia)
@@ -85,7 +78,7 @@ def revisiones_tramo(dia, spx, fondos, dias_todos, fondo_bolsa='SP'):
         tendencia = None if pd.isna(m) else ('Alcista' if c > m else 'Bajista')
         destino, rb, rm = None, None, None
         if tendencia == 'Alcista':
-            destino = fondo_bolsa
+            destino = 'SP'
         if i >= N_MOMENTUM and fondos:
             f0 = hechas[i - N_MOMENTUM]
             b1, b0 = valor_en(fondos['BONOS'], f), valor_en(fondos['BONOS'], f0)
@@ -105,11 +98,9 @@ def revisiones_tramo(dia, spx, fondos, dias_todos, fondo_bolsa='SP'):
     return hechas, cierres, revisiones, filas
 
 
-def evaluar_tramo(nombre, dia, spx, fondos, dias_todos, indice='SP'):
-    """spx: cierres del índice de este tramo (S&P 500 o Nasdaq-100)."""
-    ticker, nombre_indice, fondo_bolsa = INDICES[indice]
+def evaluar_tramo(nombre, dia, spx, fondos, dias_todos):
     ultimo = spx.index[-1]
-    hechas, cierres, revisiones, filas = revisiones_tramo(dia, spx, fondos, dias_todos, fondo_bolsa)
+    hechas, cierres, revisiones, filas = revisiones_tramo(dia, spx, fondos, dias_todos)
     actual, anterior = filas[-1], filas[-2]
     cambio = actual['destino'] != anterior['destino']
     # Si hoy fuera revisión: el último cierre frente a la media con los 9 últimos de este tramo
@@ -118,9 +109,6 @@ def evaluar_tramo(nombre, dia, spx, fondos, dias_todos, indice='SP'):
     futuras = revisiones[revisiones > ultimo]
     return dict(
         tramo=nombre,
-        indice=indice,
-        indice_nombre=nombre_indice,
-        nombre=f"{'S&P' if indice == 'SP' else 'Nasdaq'} {nombre}",
         regla=REGLA[dia],
         ultima_revision=actual,
         revision_anterior=anterior,
@@ -140,19 +128,16 @@ def evaluar_tramo(nombre, dia, spx, fondos, dias_todos, indice='SP'):
 
 
 def main(carpeta='datos'):
-    idx = {k: leer(carpeta, v[0]) for k, v in INDICES.items()}
-    spx = idx['SP']
+    spx = leer(carpeta, '^GSPC')
     fondos = {k: leer(carpeta, v['yahoo']) for k, v in FONDOS.items()}
     hoy = pd.Timestamp.now(tz='UTC').tz_localize(None).normalize()
-    dias_todos = dias_bolsa(min(s.index[0] for s in idx.values()), hoy + pd.Timedelta(days=70))
-    tramos = [evaluar_tramo(n, d, idx[k], fondos, dias_todos, k) for k in INDICES for n, d in TRAMOS]
+    dias_todos = dias_bolsa(spx.index[0], hoy + pd.Timedelta(days=70))
+    tramos = [evaluar_tramo(n, d, spx, fondos, dias_todos) for n, d in TRAMOS]
     # Valores liquidativos de los tres fondos (para comparar con el S&P desde la fecha de inicio)
     vl = pd.DataFrame(fondos).sort_index().ffill().dropna()
     estado = dict(
         generado=datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC'),
         ultimo_cierre=dict(fecha=spx.index[-1].strftime('%Y-%m-%d'), valor=round(float(spx.iloc[-1]), 2)),
-        ultimos_cierres={k: dict(nombre=INDICES[k][1], fecha=s.index[-1].strftime('%Y-%m-%d'), valor=round(float(s.iloc[-1]), 2))
-                         for k, s in idx.items()},
         tramos=tramos,
         fondos=[dict(clave=k, **v, ultimo_valor=round(float(fondos[k].iloc[-1]), 4),
                      fecha=fondos[k].index[-1].strftime('%Y-%m-%d')) for k, v in FONDOS.items()],
@@ -162,7 +147,7 @@ def main(carpeta='datos'):
     with open(f'{carpeta}/estado.json', 'w', encoding='utf-8') as fh:
         json.dump(estado, fh, ensure_ascii=False, indent=1)
     for t in tramos:
-        print(f"{t['nombre']}: {t['destino_texto']} | revisión {t['ultima_revision']['fecha']} "
+        print(f"Tramo {t['tramo']}: {t['destino_texto']} | revisión {t['ultima_revision']['fecha']} "
               f"cierre {t['ultima_revision']['cierre']} media {t['ultima_revision']['media']} | cambio: {t['cambio']}")
     return estado
 
