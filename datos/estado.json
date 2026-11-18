@@ -1,12 +1,27 @@
 {
- "generado": "2026-11-18 03:09 UTC",
+ "generado": "2026-11-18 06:55 UTC",
  "ultimo_cierre": {
   "fecha": "2026-11-17",
   "valor": 7340.53
  },
+ "ultimos_cierres": {
+  "SP": {
+   "nombre": "S&P 500",
+   "fecha": "2026-11-17",
+   "valor": 7340.53
+  },
+  "NDX": {
+   "nombre": "Nasdaq-100",
+   "fecha": "2026-11-17",
+   "valor": 27001.78
+  }
+ },
  "tramos": [
   {
    "tramo": "A",
+   "indice": "SP",
+   "indice_nombre": "S&P 500",
+   "nombre": "S&P A",
    "regla": "Último día con bolsa abierta de cada mes",
    "ultima_revision": {
     "fecha": "2026-10-30",
@@ -276,6 +291,9 @@
   },
   {
    "tramo": "B",
+   "indice": "SP",
+   "indice_nombre": "S&P 500",
+   "nombre": "S&P B",
    "regla": "Primer día con bolsa abierta a partir del día 10 de cada mes",
    "ultima_revision": {
     "fecha": "2026-11-10",
@@ -550,6 +568,9 @@
   },
   {
    "tramo": "C",
+   "indice": "SP",
+   "indice_nombre": "S&P 500",
+   "nombre": "S&P C",
    "regla": "Primer día con bolsa abierta a partir del día 20 de cada mes",
    "ultima_revision": {
     "fecha": "2026-10-20",
@@ -816,6 +837,827 @@
      "fecha": "2026-10-20"
     }
    ]
+  },
+  {
+   "tramo": "A",
+   "indice": "NDX",
+   "indice_nombre": "Nasdaq-100",
+   "nombre": "Nasdaq A",
+   "regla": "Último día con bolsa abierta de cada mes",
+   "ultima_revision": {
+    "fecha": "2026-10-30",
+    "cierre": 28384.85,
+    "media": 27883.88,
+    "distancia_pct": 1.8,
+    "tendencia": "Alcista",
+    "destino": "NASDAQ",
+    "bonos_12m_pct": 0.34,
+    "monetario_12m_pct": 2.23,
+    "fecha_orden": "2026-11-02"
+   },
+   "revision_anterior": {
+    "fecha": "2026-09-30",
+    "cierre": 30408.5,
+    "media": 27570.38,
+    "distancia_pct": 10.29,
+    "tendencia": "Alcista",
+    "destino": "NASDAQ",
+    "bonos_12m_pct": -0.12,
+    "monetario_12m_pct": 2.2,
+    "fecha_orden": "2026-10-01"
+   },
+   "destino": "NASDAQ",
+   "destino_texto": "Fondo Nasdaq-100",
+   "cambio": false,
+   "fecha_orden": "2026-11-02",
+   "revision_hoy": false,
+   "proxima_revision": "2026-11-30",
+   "si_hoy_fuera_revision": {
+    "cierre": 27001.78,
+    "media": 28028.82,
+    "distancia_pct": -3.66
+   },
+   "historial": [
+    {
+     "fecha": "2026-10-30",
+     "cierre": 28384.85,
+     "media": 27883.88,
+     "distancia_pct": 1.8,
+     "tendencia": "Alcista",
+     "destino": "NASDAQ",
+     "bonos_12m_pct": 0.34,
+     "monetario_12m_pct": 2.23,
+     "fecha_orden": "2026-11-02"
+    },
+    {
+     "fecha": "2026-09-30",
+     "cierre": 30408.5,
+     "media": 27570.38,
+     "distancia_pct": 10.29,
+     "tendencia": "Alcista",
+     "destino": "NASDAQ",
+     "bonos_12m_pct": -0.12,
+     "monetario_12m_pct": 2.2,
+     "fecha_orden": "2026-10-01"
+    },
+    {
+     "fecha": "2026-08-31",
+     "cierre": 29456.97,
+     "media": 27073.02,
+     "distancia_pct": 8.81,
+     "tendencia": "Alcista",
+     "destino": "NASDAQ",
+     "bonos_12m_pct": 0.81,
+     "monetario_12m_pct": 2.18,
+     "fecha_orden": "2026-09-01"
+    },
+    {
+     "fecha": "2026-07-31",
+     "cierre": 28274.2,
+     "media": 26713.13,
+     "distancia_pct": 5.84,
+     "tendencia": "Alcista",
+     "destino": "NASDAQ",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null,
+     "fecha_orden": "2026-08-03"
+    },
+    {
+     "fecha": "2026-06-30",
+     "cierre": 30276.35,
+     "media": 26353.71,
+     "distancia_pct": 14.88,
+     "tendencia": "Alcista",
+     "destino": "NASDAQ",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null,
+     "fecha_orden": "2026-07-01"
+    },
+    {
+     "fecha": "2026-05-29",
+     "cierre": 30333.18,
+     "media": 25667.62,
+     "distancia_pct": 18.18,
+     "tendencia": "Alcista",
+     "destino": "NASDAQ",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null,
+     "fecha_orden": "2026-06-01"
+    },
+    {
+     "fecha": "2026-04-30",
+     "cierre": 27452.12,
+     "media": 24956.11,
+     "distancia_pct": 10.0,
+     "tendencia": "Alcista",
+     "destino": "NASDAQ",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null,
+     "fecha_orden": "2026-05-01"
+    },
+    {
+     "fecha": "2026-03-31",
+     "cierre": 23740.19,
+     "media": 24478.8,
+     "distancia_pct": -3.02,
+     "tendencia": "Bajista",
+     "destino": null,
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null,
+     "fecha_orden": "2026-04-01"
+    },
+    {
+     "fecha": "2026-02-27",
+     "cierre": 24960.04,
+     "media": 24238.88,
+     "distancia_pct": 2.98,
+     "tendencia": "Alcista",
+     "destino": "NASDAQ",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null,
+     "fecha_orden": "2026-03-02"
+    },
+    {
+     "fecha": "2026-01-30",
+     "cierre": 25552.39,
+     "media": 23699.98,
+     "distancia_pct": 7.82,
+     "tendencia": "Alcista",
+     "destino": "NASDAQ",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null,
+     "fecha_orden": "2026-02-02"
+    },
+    {
+     "fecha": "2025-12-31",
+     "cierre": 25249.85,
+     "media": 23072.59,
+     "distancia_pct": 9.44,
+     "tendencia": "Alcista",
+     "destino": "NASDAQ",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null,
+     "fecha_orden": "2026-01-02"
+    },
+    {
+     "fecha": "2025-11-28",
+     "cierre": 25434.89,
+     "media": 22636.04,
+     "distancia_pct": 12.36,
+     "tendencia": "Alcista",
+     "destino": "NASDAQ",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null,
+     "fecha_orden": "2025-12-01"
+    },
+    {
+     "fecha": "2025-10-31",
+     "cierre": 25858.13,
+     "media": 22240.36,
+     "distancia_pct": 16.27,
+     "tendencia": "Alcista",
+     "destino": "NASDAQ",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null,
+     "fecha_orden": "2025-11-03"
+    }
+   ],
+   "ordenes": [
+    {
+     "fecha_orden": "2025-07-01",
+     "destino": "MONETARIO",
+     "fecha": "2025-06-30"
+    },
+    {
+     "fecha_orden": "2025-08-01",
+     "destino": "MONETARIO",
+     "fecha": "2025-07-31"
+    },
+    {
+     "fecha_orden": "2025-09-02",
+     "destino": "NASDAQ",
+     "fecha": "2025-08-29"
+    },
+    {
+     "fecha_orden": "2025-10-01",
+     "destino": "NASDAQ",
+     "fecha": "2025-09-30"
+    },
+    {
+     "fecha_orden": "2025-11-03",
+     "destino": "NASDAQ",
+     "fecha": "2025-10-31"
+    },
+    {
+     "fecha_orden": "2025-12-01",
+     "destino": "NASDAQ",
+     "fecha": "2025-11-28"
+    },
+    {
+     "fecha_orden": "2026-01-02",
+     "destino": "NASDAQ",
+     "fecha": "2025-12-31"
+    },
+    {
+     "fecha_orden": "2026-02-02",
+     "destino": "NASDAQ",
+     "fecha": "2026-01-30"
+    },
+    {
+     "fecha_orden": "2026-03-02",
+     "destino": "NASDAQ",
+     "fecha": "2026-02-27"
+    },
+    {
+     "fecha_orden": "2026-04-01",
+     "destino": "MONETARIO",
+     "fecha": "2026-03-31"
+    },
+    {
+     "fecha_orden": "2026-05-01",
+     "destino": "NASDAQ",
+     "fecha": "2026-04-30"
+    },
+    {
+     "fecha_orden": "2026-06-01",
+     "destino": "NASDAQ",
+     "fecha": "2026-05-29"
+    },
+    {
+     "fecha_orden": "2026-07-01",
+     "destino": "NASDAQ",
+     "fecha": "2026-06-30"
+    },
+    {
+     "fecha_orden": "2026-08-03",
+     "destino": "NASDAQ",
+     "fecha": "2026-07-31"
+    },
+    {
+     "fecha_orden": "2026-09-01",
+     "destino": "NASDAQ",
+     "fecha": "2026-08-31"
+    },
+    {
+     "fecha_orden": "2026-10-01",
+     "destino": "NASDAQ",
+     "fecha": "2026-09-30"
+    },
+    {
+     "fecha_orden": "2026-11-02",
+     "destino": "NASDAQ",
+     "fecha": "2026-10-30"
+    }
+   ]
+  },
+  {
+   "tramo": "B",
+   "indice": "NDX",
+   "indice_nombre": "Nasdaq-100",
+   "nombre": "Nasdaq B",
+   "regla": "Primer día con bolsa abierta a partir del día 10 de cada mes",
+   "ultima_revision": {
+    "fecha": "2026-11-10",
+    "cierre": 27740.79,
+    "media": 27998.5,
+    "distancia_pct": -0.92,
+    "tendencia": "Bajista",
+    "destino": "MONETARIO",
+    "bonos_12m_pct": 0.41,
+    "monetario_12m_pct": 2.27,
+    "fecha_orden": "2026-11-11"
+   },
+   "revision_anterior": {
+    "fecha": "2026-10-12",
+    "cierre": 30664.7,
+    "media": 27803.19,
+    "distancia_pct": 10.29,
+    "tendencia": "Alcista",
+    "destino": "NASDAQ",
+    "bonos_12m_pct": -0.07,
+    "monetario_12m_pct": 2.24,
+    "fecha_orden": "2026-10-13"
+   },
+   "destino": "MONETARIO",
+   "destino_texto": "Fondo monetario",
+   "cambio": true,
+   "fecha_orden": "2026-11-11",
+   "revision_hoy": false,
+   "proxima_revision": "2026-12-10",
+   "si_hoy_fuera_revision": {
+    "cierre": 27001.78,
+    "media": 28185.92,
+    "distancia_pct": -4.2
+   },
+   "historial": [
+    {
+     "fecha": "2026-11-10",
+     "cierre": 27740.79,
+     "media": 27998.5,
+     "distancia_pct": -0.92,
+     "tendencia": "Bajista",
+     "destino": "MONETARIO",
+     "bonos_12m_pct": 0.41,
+     "monetario_12m_pct": 2.27,
+     "fecha_orden": "2026-11-11"
+    },
+    {
+     "fecha": "2026-10-12",
+     "cierre": 30664.7,
+     "media": 27803.19,
+     "distancia_pct": 10.29,
+     "tendencia": "Alcista",
+     "destino": "NASDAQ",
+     "bonos_12m_pct": -0.07,
+     "monetario_12m_pct": 2.24,
+     "fecha_orden": "2026-10-13"
+    },
+    {
+     "fecha": "2026-09-10",
+     "cierre": 29103.51,
+     "media": 27314.37,
+     "distancia_pct": 6.55,
+     "tendencia": "Alcista",
+     "destino": "NASDAQ",
+     "bonos_12m_pct": 0.1,
+     "monetario_12m_pct": 2.18,
+     "fecha_orden": "2026-09-11"
+    },
+    {
+     "fecha": "2026-08-10",
+     "cierre": 29621.8,
+     "media": 26965.19,
+     "distancia_pct": 9.85,
+     "tendencia": "Alcista",
+     "destino": "NASDAQ",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null,
+     "fecha_orden": "2026-08-11"
+    },
+    {
+     "fecha": "2026-07-10",
+     "cierre": 29825.11,
+     "media": 26425.18,
+     "distancia_pct": 12.87,
+     "tendencia": "Alcista",
+     "destino": "NASDAQ",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null,
+     "fecha_orden": "2026-07-13"
+    },
+    {
+     "fecha": "2026-06-10",
+     "cierre": 28508.03,
+     "media": 25827.6,
+     "distancia_pct": 10.38,
+     "tendencia": "Alcista",
+     "destino": "NASDAQ",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null,
+     "fecha_orden": "2026-06-11"
+    },
+    {
+     "fecha": "2026-05-11",
+     "cierre": 29320.66,
+     "media": 25329.46,
+     "distancia_pct": 15.76,
+     "tendencia": "Alcista",
+     "destino": "NASDAQ",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null,
+     "fecha_orden": "2026-05-12"
+    },
+    {
+     "fecha": "2026-04-10",
+     "cierre": 25116.34,
+     "media": 24680.32,
+     "distancia_pct": 1.77,
+     "tendencia": "Alcista",
+     "destino": "NASDAQ",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null,
+     "fecha_orden": "2026-04-13"
+    },
+    {
+     "fecha": "2026-03-10",
+     "cierre": 24956.47,
+     "media": 24362.88,
+     "distancia_pct": 2.44,
+     "tendencia": "Alcista",
+     "destino": "NASDAQ",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null,
+     "fecha_orden": "2026-03-11"
+    },
+    {
+     "fecha": "2026-02-10",
+     "cierre": 25127.64,
+     "media": 23954.05,
+     "distancia_pct": 4.9,
+     "tendencia": "Alcista",
+     "destino": "NASDAQ",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null,
+     "fecha_orden": "2026-02-11"
+    },
+    {
+     "fecha": "2026-01-12",
+     "cierre": 25787.66,
+     "media": 23275.64,
+     "distancia_pct": 10.79,
+     "tendencia": "Alcista",
+     "destino": "NASDAQ",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null,
+     "fecha_orden": "2026-01-13"
+    },
+    {
+     "fecha": "2025-12-10",
+     "cierre": 25776.44,
+     "media": 22639.97,
+     "distancia_pct": 13.85,
+     "tendencia": "Alcista",
+     "destino": "NASDAQ",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null,
+     "fecha_orden": "2025-12-11"
+    },
+    {
+     "fecha": "2025-11-10",
+     "cierre": 25611.74,
+     "media": 22238.0,
+     "distancia_pct": 15.17,
+     "tendencia": "Alcista",
+     "destino": "NASDAQ",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null,
+     "fecha_orden": "2025-11-11"
+    }
+   ],
+   "ordenes": [
+    {
+     "fecha_orden": "2025-06-11",
+     "destino": "MONETARIO",
+     "fecha": "2025-06-10"
+    },
+    {
+     "fecha_orden": "2025-07-11",
+     "destino": "MONETARIO",
+     "fecha": "2025-07-10"
+    },
+    {
+     "fecha_orden": "2025-08-12",
+     "destino": "NASDAQ",
+     "fecha": "2025-08-11"
+    },
+    {
+     "fecha_orden": "2025-09-11",
+     "destino": "NASDAQ",
+     "fecha": "2025-09-10"
+    },
+    {
+     "fecha_orden": "2025-10-13",
+     "destino": "NASDAQ",
+     "fecha": "2025-10-10"
+    },
+    {
+     "fecha_orden": "2025-11-11",
+     "destino": "NASDAQ",
+     "fecha": "2025-11-10"
+    },
+    {
+     "fecha_orden": "2025-12-11",
+     "destino": "NASDAQ",
+     "fecha": "2025-12-10"
+    },
+    {
+     "fecha_orden": "2026-01-13",
+     "destino": "NASDAQ",
+     "fecha": "2026-01-12"
+    },
+    {
+     "fecha_orden": "2026-02-11",
+     "destino": "NASDAQ",
+     "fecha": "2026-02-10"
+    },
+    {
+     "fecha_orden": "2026-03-11",
+     "destino": "NASDAQ",
+     "fecha": "2026-03-10"
+    },
+    {
+     "fecha_orden": "2026-04-13",
+     "destino": "NASDAQ",
+     "fecha": "2026-04-10"
+    },
+    {
+     "fecha_orden": "2026-05-12",
+     "destino": "NASDAQ",
+     "fecha": "2026-05-11"
+    },
+    {
+     "fecha_orden": "2026-06-11",
+     "destino": "NASDAQ",
+     "fecha": "2026-06-10"
+    },
+    {
+     "fecha_orden": "2026-07-13",
+     "destino": "NASDAQ",
+     "fecha": "2026-07-10"
+    },
+    {
+     "fecha_orden": "2026-08-11",
+     "destino": "NASDAQ",
+     "fecha": "2026-08-10"
+    },
+    {
+     "fecha_orden": "2026-09-11",
+     "destino": "NASDAQ",
+     "fecha": "2026-09-10"
+    },
+    {
+     "fecha_orden": "2026-10-13",
+     "destino": "NASDAQ",
+     "fecha": "2026-10-12"
+    },
+    {
+     "fecha_orden": "2026-11-11",
+     "destino": "MONETARIO",
+     "fecha": "2026-11-10"
+    }
+   ]
+  },
+  {
+   "tramo": "C",
+   "indice": "NDX",
+   "indice_nombre": "Nasdaq-100",
+   "nombre": "Nasdaq C",
+   "regla": "Primer día con bolsa abierta a partir del día 20 de cada mes",
+   "ultima_revision": {
+    "fecha": "2026-10-20",
+    "cierre": 29490.28,
+    "media": 27792.35,
+    "distancia_pct": 6.11,
+    "tendencia": "Alcista",
+    "destino": "NASDAQ",
+    "bonos_12m_pct": -0.14,
+    "monetario_12m_pct": 2.23,
+    "fecha_orden": "2026-10-21"
+   },
+   "revision_anterior": {
+    "fecha": "2026-09-21",
+    "cierre": 30482.35,
+    "media": 27389.49,
+    "distancia_pct": 11.29,
+    "tendencia": "Alcista",
+    "destino": "NASDAQ",
+    "bonos_12m_pct": 0.13,
+    "monetario_12m_pct": 2.18,
+    "fecha_orden": "2026-09-22"
+   },
+   "destino": "NASDAQ",
+   "destino_texto": "Fondo Nasdaq-100",
+   "cambio": false,
+   "fecha_orden": "2026-10-21",
+   "revision_hoy": false,
+   "proxima_revision": "2026-11-20",
+   "si_hoy_fuera_revision": {
+    "cierre": 27001.78,
+    "media": 27993.77,
+    "distancia_pct": -3.54
+   },
+   "historial": [
+    {
+     "fecha": "2026-10-20",
+     "cierre": 29490.28,
+     "media": 27792.35,
+     "distancia_pct": 6.11,
+     "tendencia": "Alcista",
+     "destino": "NASDAQ",
+     "bonos_12m_pct": -0.14,
+     "monetario_12m_pct": 2.23,
+     "fecha_orden": "2026-10-21"
+    },
+    {
+     "fecha": "2026-09-21",
+     "cierre": 30482.35,
+     "media": 27389.49,
+     "distancia_pct": 11.29,
+     "tendencia": "Alcista",
+     "destino": "NASDAQ",
+     "bonos_12m_pct": 0.13,
+     "monetario_12m_pct": 2.18,
+     "fecha_orden": "2026-09-22"
+    },
+    {
+     "fecha": "2026-08-20",
+     "cierre": 29213.16,
+     "media": 26746.69,
+     "distancia_pct": 9.22,
+     "tendencia": "Alcista",
+     "destino": "NASDAQ",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null,
+     "fecha_orden": "2026-08-21"
+    },
+    {
+     "fecha": "2026-07-20",
+     "cierre": 28604.23,
+     "media": 26339.48,
+     "distancia_pct": 8.6,
+     "tendencia": "Alcista",
+     "destino": "NASDAQ",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null,
+     "fecha_orden": "2026-07-21"
+    },
+    {
+     "fecha": "2026-06-22",
+     "cierre": 30347.08,
+     "media": 25955.16,
+     "distancia_pct": 16.92,
+     "tendencia": "Alcista",
+     "destino": "NASDAQ",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null,
+     "fecha_orden": "2026-06-23"
+    },
+    {
+     "fecha": "2026-05-20",
+     "cierre": 29297.7,
+     "media": 25245.41,
+     "distancia_pct": 16.05,
+     "tendencia": "Alcista",
+     "destino": "NASDAQ",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null,
+     "fecha_orden": "2026-05-21"
+    },
+    {
+     "fecha": "2026-04-20",
+     "cierre": 26590.34,
+     "media": 24633.65,
+     "distancia_pct": 7.94,
+     "tendencia": "Alcista",
+     "destino": "NASDAQ",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null,
+     "fecha_orden": "2026-04-21"
+    },
+    {
+     "fecha": "2026-03-20",
+     "cierre": 23898.15,
+     "media": 24137.25,
+     "distancia_pct": -0.99,
+     "tendencia": "Bajista",
+     "destino": null,
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null,
+     "fecha_orden": "2026-03-23"
+    },
+    {
+     "fecha": "2026-02-20",
+     "cierre": 25012.62,
+     "media": 23884.17,
+     "distancia_pct": 4.72,
+     "tendencia": "Alcista",
+     "destino": "NASDAQ",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null,
+     "fecha_orden": "2026-02-23"
+    },
+    {
+     "fecha": "2026-01-20",
+     "cierre": 24987.57,
+     "media": 23163.74,
+     "distancia_pct": 7.87,
+     "tendencia": "Alcista",
+     "destino": "NASDAQ",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null,
+     "fecha_orden": "2026-01-21"
+    },
+    {
+     "fecha": "2025-12-22",
+     "cierre": 25461.7,
+     "media": 22632.75,
+     "distancia_pct": 12.5,
+     "tendencia": "Alcista",
+     "destino": "NASDAQ",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null,
+     "fecha_orden": "2025-12-23"
+    },
+    {
+     "fecha": "2025-11-20",
+     "cierre": 24054.38,
+     "media": 22293.38,
+     "distancia_pct": 7.9,
+     "tendencia": "Alcista",
+     "destino": "NASDAQ",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null,
+     "fecha_orden": "2025-11-21"
+    },
+    {
+     "fecha": "2025-10-20",
+     "cierre": 25141.02,
+     "media": 22044.6,
+     "distancia_pct": 14.05,
+     "tendencia": "Alcista",
+     "destino": "NASDAQ",
+     "bonos_12m_pct": null,
+     "monetario_12m_pct": null,
+     "fecha_orden": "2025-10-21"
+    }
+   ],
+   "ordenes": [
+    {
+     "fecha_orden": "2025-06-23",
+     "destino": "MONETARIO",
+     "fecha": "2025-06-20"
+    },
+    {
+     "fecha_orden": "2025-07-22",
+     "destino": "MONETARIO",
+     "fecha": "2025-07-21"
+    },
+    {
+     "fecha_orden": "2025-08-21",
+     "destino": "NASDAQ",
+     "fecha": "2025-08-20"
+    },
+    {
+     "fecha_orden": "2025-09-23",
+     "destino": "NASDAQ",
+     "fecha": "2025-09-22"
+    },
+    {
+     "fecha_orden": "2025-10-21",
+     "destino": "NASDAQ",
+     "fecha": "2025-10-20"
+    },
+    {
+     "fecha_orden": "2025-11-21",
+     "destino": "NASDAQ",
+     "fecha": "2025-11-20"
+    },
+    {
+     "fecha_orden": "2025-12-23",
+     "destino": "NASDAQ",
+     "fecha": "2025-12-22"
+    },
+    {
+     "fecha_orden": "2026-01-21",
+     "destino": "NASDAQ",
+     "fecha": "2026-01-20"
+    },
+    {
+     "fecha_orden": "2026-02-23",
+     "destino": "NASDAQ",
+     "fecha": "2026-02-20"
+    },
+    {
+     "fecha_orden": "2026-03-23",
+     "destino": "MONETARIO",
+     "fecha": "2026-03-20"
+    },
+    {
+     "fecha_orden": "2026-04-21",
+     "destino": "NASDAQ",
+     "fecha": "2026-04-20"
+    },
+    {
+     "fecha_orden": "2026-05-21",
+     "destino": "NASDAQ",
+     "fecha": "2026-05-20"
+    },
+    {
+     "fecha_orden": "2026-06-23",
+     "destino": "NASDAQ",
+     "fecha": "2026-06-22"
+    },
+    {
+     "fecha_orden": "2026-07-21",
+     "destino": "NASDAQ",
+     "fecha": "2026-07-20"
+    },
+    {
+     "fecha_orden": "2026-08-21",
+     "destino": "NASDAQ",
+     "fecha": "2026-08-20"
+    },
+    {
+     "fecha_orden": "2026-09-22",
+     "destino": "NASDAQ",
+     "fecha": "2026-09-21"
+    },
+    {
+     "fecha_orden": "2026-10-21",
+     "destino": "NASDAQ",
+     "fecha": "2026-10-20"
+    }
+   ]
   }
  ],
  "fondos": [
@@ -842,6 +1684,14 @@
    "yahoo": "0P00000N5G.F",
    "ultimo_valor": 49737.7109,
    "fecha": "2026-11-17"
+  },
+  {
+   "clave": "NASDAQ",
+   "nombre": "MyInvestor Nasdaq 100 FI",
+   "isin": "ES0165265002",
+   "yahoo": "0P0001MRGW.F",
+   "ultimo_valor": 1.6639,
+   "fecha": "2026-11-13"
   }
  ],
  "valores_liquidativos": {
@@ -929,6 +1779,7 @@
    "2025-12-16",
    "2025-12-17",
    "2025-12-18",
+   "2025-12-19",
    "2025-12-22",
    "2025-12-23",
    "2025-12-29",
@@ -1050,6 +1901,7 @@
    "2026-06-16",
    "2026-06-17",
    "2026-06-18",
+   "2026-06-19",
    "2026-06-22",
    "2026-06-23",
    "2026-06-24",
@@ -1059,6 +1911,7 @@
    "2026-06-30",
    "2026-07-01",
    "2026-07-02",
+   "2026-07-03",
    "2026-07-06",
    "2026-07-07",
    "2026-07-08",
@@ -1241,6 +2094,7 @@
    10.55,
    10.445,
    10.551,
+   10.551,
    10.676,
    10.714,
    10.719,
@@ -1362,6 +2216,7 @@
    11.873,
    11.745,
    11.975,
+   11.975,
    11.976,
    11.878,
    11.907,
@@ -1370,6 +2225,7 @@
    11.943,
    12.01,
    12.045,
+   11.97,
    11.97,
    12.102,
    12.022,
@@ -1553,6 +2409,7 @@
    10.076,
    10.076,
    10.081,
+   10.081,
    10.074,
    10.074,
    10.089,
@@ -1674,6 +2531,7 @@
    10.116,
    10.102,
    10.106,
+   10.106,
    10.101,
    10.108,
    10.119,
@@ -1682,6 +2540,7 @@
    10.13,
    10.124,
    10.121,
+   10.124,
    10.124,
    10.129,
    10.116,
@@ -1865,6 +2724,7 @@
    48713.53906,
    48716.50781,
    48719.49609,
+   48719.49609,
    48730.17578,
    48733.89062,
    48750.78516,
@@ -1986,6 +2846,7 @@
    49223.41016,
    49226.25781,
    49230.29297,
+   49230.29297,
    49242.98047,
    49246.59766,
    49249.42578,
@@ -1994,6 +2855,7 @@
    49265.25,
    49269.01172,
    49271.00391,
+   49274.28516,
    49274.28516,
    49287.98828,
    49290.81641,
@@ -2092,6 +2954,321 @@
    49719.14453,
    49733.14453,
    49737.71094
+  ],
+  "NASDAQ": [
+   1.34429,
+   1.3484,
+   1.34969,
+   1.33659,
+   1.33478,
+   1.32471,
+   1.33734,
+   1.34772,
+   1.34403,
+   1.34977,
+   1.35458,
+   1.36169,
+   1.36337,
+   1.36713,
+   1.37467,
+   1.36279,
+   1.36471,
+   1.38518,
+   1.39183,
+   1.39411,
+   1.39105,
+   1.39293,
+   1.39324,
+   1.39133,
+   1.39971,
+   1.39729,
+   1.4042,
+   1.41388,
+   1.41163,
+   1.4201,
+   1.42039,
+   1.43591,
+   1.44301,
+   1.40245,
+   1.42234,
+   1.40919,
+   1.41916,
+   1.41916,
+   1.40811,
+   1.43779,
+   1.44171,
+   1.44171,
+   1.43561,
+   1.45175,
+   1.47234,
+   1.48293,
+   1.49703,
+   1.4872,
+   1.49222,
+   1.49816,
+   1.48135,
+   1.48171,
+   1.45046,
+   1.4289,
+   1.46581,
+   1.46295,
+   1.46327,
+   1.43604,
+   1.43536,
+   1.43075,
+   1.41079,
+   1.42003,
+   1.41657,
+   1.39577,
+   1.43311,
+   1.43026,
+   1.44918,
+   1.4481,
+   1.45527,
+   1.45102,
+   1.45712,
+   1.45629,
+   1.46025,
+   1.46663,
+   1.46498,
+   1.46812,
+   1.4607,
+   1.44891,
+   1.42808,
+   1.42371,
+   1.41808,
+   1.40236,
+   1.40236,
+   1.43819,
+   1.43972,
+   1.43959,
+   1.44021,
+   1.44021,
+   1.431,
+   1.44326,
+   1.45328,
+   1.46275,
+   1.45235,
+   1.46851,
+   1.46831,
+   1.47016,
+   1.45324,
+   1.46934,
+   1.46476,
+   1.44476,
+   1.42584,
+   1.43904,
+   1.44339,
+   1.43901,
+   1.44035,
+   1.43242,
+   1.44831,
+   1.42726,
+   1.43774,
+   1.45163,
+   1.42697,
+   1.40656,
+   1.38974,
+   1.40536,
+   1.4088,
+   1.4091,
+   1.40827,
+   1.38742,
+   1.38659,
+   1.38488,
+   1.3832,
+   1.4091,
+   1.40112,
+   1.40784,
+   1.39471,
+   1.4093,
+   1.42248,
+   1.41162,
+   1.4031,
+   1.41564,
+   1.41005,
+   1.43279,
+   1.42996,
+   1.41578,
+   1.41432,
+   1.43389,
+   1.43342,
+   1.41962,
+   1.42175,
+   1.42319,
+   1.42774,
+   1.42601,
+   1.39382,
+   1.3792,
+   1.38209,
+   1.37749,
+   1.39051,
+   1.36859,
+   1.34138,
+   1.33778,
+   1.34944,
+   1.37792,
+   1.38231,
+   1.37586,
+   1.41668,
+   1.41864,
+   1.42531,
+   1.42529,
+   1.44802,
+   1.46791,
+   1.48245,
+   1.50395,
+   1.4952,
+   1.4995,
+   1.52264,
+   1.52789,
+   1.54037,
+   1.54138,
+   1.5269,
+   1.54248,
+   1.5454,
+   1.56939,
+   1.58683,
+   1.60704,
+   1.62013,
+   1.63609,
+   1.64675,
+   1.63153,
+   1.65435,
+   1.6776,
+   1.66272,
+   1.6441,
+   1.63975,
+   1.66484,
+   1.66606,
+   1.68634,
+   1.68307,
+   1.70406,
+   1.70321,
+   1.71538,
+   1.72107,
+   1.73235,
+   1.74159,
+   1.7447,
+   1.73226,
+   1.69108,
+   1.69368,
+   1.6584,
+   1.645,
+   1.65892,
+   1.69567,
+   1.74184,
+   1.71788,
+   1.72242,
+   1.74964,
+   1.75161,
+   1.7547,
+   1.7095,
+   1.711,
+   1.70895,
+   1.69679,
+   1.71228,
+   1.74622,
+   1.74303,
+   1.7048,
+   1.70782,
+   1.72119,
+   1.68899,
+   1.68103,
+   1.71759,
+   1.72567,
+   1.70921,
+   1.71621,
+   1.70039,
+   1.68526,
+   1.65237,
+   1.6665,
+   1.69058,
+   1.68608,
+   1.65066,
+   1.64447,
+   1.62716,
+   1.61603,
+   1.57957,
+   1.60624,
+   1.61648,
+   1.64756,
+   1.6953,
+   1.69524,
+   1.68924,
+   1.69848,
+   1.69795,
+   1.69351,
+   1.7063,
+   1.72467,
+   1.72467,
+   1.71818,
+   1.68502,
+   1.66989,
+   1.6573,
+   1.66001,
+   1.64678,
+   1.65433,
+   1.65737,
+   1.67723,
+   1.68965,
+   1.68019,
+   1.66266,
+   1.66256,
+   1.67693,
+   1.68019,
+   1.68088,
+   1.68096,
+   1.67062,
+   1.6614,
+   1.67696,
+   1.66649,
+   1.65896,
+   1.67704,
+   1.6945,
+   1.69833,
+   1.74903,
+   1.76871,
+   1.76849,
+   1.75981,
+   1.77194,
+   1.75673,
+   1.76535,
+   1.77891,
+   1.78622,
+   1.80843,
+   1.82455,
+   1.83454,
+   1.83337,
+   1.81939,
+   1.81766,
+   1.81645,
+   1.79768,
+   1.78144,
+   1.75621,
+   1.72722,
+   1.74759,
+   1.73621,
+   1.752,
+   1.71307,
+   1.71269,
+   1.73142,
+   1.75995,
+   1.76122,
+   1.73755,
+   1.68512,
+   1.67342,
+   1.66388,
+   1.6724,
+   1.58954,
+   1.60574,
+   1.63298,
+   1.6354,
+   1.68376,
+   1.68751,
+   1.66394,
+   1.66394,
+   1.66394
   ]
  }
 }
