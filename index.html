@@ -42,7 +42,16 @@
   th:first-child, td:first-child { text-align:left; }
   th { color:var(--muted); font-weight:500; }
   .fondos td:last-child { font-family:ui-monospace,monospace; font-size:.78rem; }
-  button { background:var(--accent); color:#fff; border:0; border-radius:10px; padding:10px 14px; font-size:.95rem; }
+  button { background:var(--accent); color:#fff; border:0; border-radius:10px; padding:10px 14px; font-size:.95rem;
+           cursor:pointer; -webkit-tap-highlight-color:transparent; touch-action:manipulation;
+           transition:transform .08s ease, filter .08s ease, opacity .2s ease; }
+  button:active { transform:scale(.94); filter:brightness(.8); }
+  button:disabled { opacity:.6; cursor:default; transform:none; }
+  #recargar { min-width:150px; }
+  #recargar.hecho { background:var(--ok); }
+  .gira { display:inline-block; width:.9em; height:.9em; margin-right:6px; vertical-align:-.1em;
+          border:2px solid rgba(255,255,255,.45); border-top-color:#fff; border-radius:50%; animation:gira .7s linear infinite; }
+  @keyframes gira { to { transform:rotate(360deg); } }
   .error { color:var(--bad); }
   a { color:var(--accent); }
   .form { display:flex; flex-direction:column; gap:8px; margin-top:10px; }
@@ -62,6 +71,7 @@
   <p class="nota">Cambia siempre con <b>traspaso</b> del tercio de la cartera que toque, nunca vendiendo a la cuenta: el traspaso no paga impuestos.</p>
 </div>
 <p style="text-align:center"><button id="recargar">Actualizar</button></p>
+<p class="nota" style="text-align:center;margin-top:0" id="comprobado"></p>
 <p class="nota" style="text-align:center"><a href="https://claude.ai/artifact/A2WrfZTghWGtpGg7JMYpPK" target="_blank" rel="noopener">Reglas de la casa</a></p>
 <p class="nota" style="text-align:center">Los datos se descargan solos de Yahoo cada tarde, al cerrar Wall Street, y cada madrugada.</p>
 
@@ -213,6 +223,7 @@ function pintarComparacion(e) {
 
 async function cargar() {
   const cab = document.getElementById('cabecera');
+  let ok = false;
   try {
     const r = await fetch('datos/estado.json?t=' + Date.now(), { cache: 'no-store' });
     if (!r.ok) throw new Error('HTTP ' + r.status);
@@ -226,12 +237,31 @@ async function cargar() {
     const tf = document.getElementById('tabla-fondos');
     tf.replaceChildren(...e.fondos.map(f => el('tr', {}, el('td', {}, `${PARA[f.clave]}: ${f.nombre}`), el('td', {}, f.isin))));
     document.getElementById('fondos').hidden = false;
+    ok = true;
   } catch (err) {
     cab.replaceChildren(el('span', { class: 'error' }, 'No se pudieron cargar los datos (' + err.message + ').'));
   }
+  const hora = new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  document.getElementById('comprobado').textContent = ok ? `Comprobado a las ${hora}.` : `Falló a las ${hora}.`;
+  return ok;
 }
 
-document.getElementById('recargar').addEventListener('click', cargar);
+// Botón Actualizar: se hunde al tocarlo, gira mientras carga y dice cómo ha ido.
+const boton = document.getElementById('recargar');
+boton.addEventListener('touchstart', () => {}, { passive: true }); // activa :active en iPhone
+boton.addEventListener('click', async () => {
+  if (boton.disabled) return;
+  boton.disabled = true;
+  boton.classList.remove('hecho');
+  boton.replaceChildren(el('span', { class: 'gira' }), 'Actualizando…');
+  if (navigator.vibrate) navigator.vibrate(15);
+  const espera = new Promise(r => setTimeout(r, 600)); // que se vea aunque cargue al instante
+  const [ok] = await Promise.all([cargar(), espera]);
+  boton.disabled = false;
+  if (ok) { boton.classList.add('hecho'); boton.textContent = '✓ Actualizado'; }
+  else boton.textContent = '✗ Sin conexión';
+  setTimeout(() => { boton.classList.remove('hecho'); boton.textContent = 'Actualizar'; }, 2000);
+});
 cargar();
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
 </script>
