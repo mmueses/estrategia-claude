@@ -1,8 +1,8 @@
 {
- "generado": "2026-11-19 14:24 UTC",
+ "generado": "2026-11-20 02:39 UTC",
  "ultimo_cierre": {
-  "fecha": "2026-11-18",
-  "valor": 7323.63
+  "fecha": "2026-11-19",
+  "valor": 7175.83
  },
  "tramos": [
   {
@@ -39,9 +39,9 @@
    "revision_hoy": false,
    "proxima_revision": "2026-11-30",
    "si_hoy_fuera_revision": {
-    "cierre": 7323.63,
-    "media": 7342.69,
-    "distancia_pct": -0.26
+    "cierre": 7175.83,
+    "media": 7327.91,
+    "distancia_pct": -2.08
    },
    "historial": [
     {
@@ -323,9 +323,9 @@
    "revision_hoy": false,
    "proxima_revision": "2026-12-10",
    "si_hoy_fuera_revision": {
-    "cierre": 7323.63,
-    "media": 7385.02,
-    "distancia_pct": -0.83
+    "cierre": 7175.83,
+    "media": 7370.24,
+    "distancia_pct": -2.64
    },
    "historial": [
     {
@@ -612,9 +612,9 @@
    "revision_hoy": false,
    "proxima_revision": "2026-11-20",
    "si_hoy_fuera_revision": {
-    "cierre": 7323.63,
-    "media": 7331.62,
-    "distancia_pct": -0.11
+    "cierre": 7175.83,
+    "media": 7316.84,
+    "distancia_pct": -1.93
    },
    "historial": [
     {
@@ -869,24 +869,24 @@
    "nombre": "iShares US Index Fund (IE), clase S Acc EUR",
    "isin": "IE000N4ZYX28",
    "yahoo": "0P0001XF42.F",
-   "ultimo_valor": 12.239,
-   "fecha": "2026-11-17"
+   "ultimo_valor": 12.251,
+   "fecha": "2026-11-18"
   },
   {
    "clave": "BONOS",
    "nombre": "iShares Global Aggregate 1-5Y Bond Index, cubierto EUR",
    "isin": "IE0004ZP1ND3",
    "yahoo": "0P0001W7AI.F",
-   "ultimo_valor": 10.087,
-   "fecha": "2026-11-17"
+   "ultimo_valor": 10.091,
+   "fecha": "2026-11-18"
   },
   {
    "clave": "MONETARIO",
    "nombre": "AXA IM Euro Liquidity SRI",
    "isin": "FR0000978371",
    "yahoo": "0P00000N5G.F",
-   "ultimo_valor": 49740.543,
-   "fecha": "2026-11-18"
+   "ultimo_valor": 49744.6289,
+   "fecha": "2026-11-19"
   }
  ],
  "valores_liquidativos": {
@@ -1201,7 +1201,8 @@
    "2026-11-13",
    "2026-11-16",
    "2026-11-17",
-   "2026-11-18"
+   "2026-11-18",
+   "2026-11-19"
   ],
   "SP": [
    10.121,
@@ -1514,7 +1515,8 @@
    12.579,
    12.368,
    12.239,
-   12.239
+   12.251,
+   12.251
   ],
   "BONOS": [
    10.017,
@@ -1827,7 +1829,8 @@
    10.076,
    10.082,
    10.087,
-   10.087
+   10.091,
+   10.091
   ],
   "MONETARIO": [
    48406.50781,
@@ -2140,7 +2143,8 @@
    49719.14453,
    49733.14453,
    49737.71094,
-   49740.54297
+   49740.54297,
+   49744.62891
   ]
  }
 }
