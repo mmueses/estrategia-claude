@@ -1,8 +1,8 @@
 {
- "generado": "2026-11-20 13:59 UTC",
+ "generado": "2026-11-21 02:51 UTC",
  "ultimo_cierre": {
-  "fecha": "2026-11-19",
-  "valor": 7175.83
+  "fecha": "2026-11-20",
+  "valor": 6910.39
  },
  "tramos": [
   {
@@ -39,9 +39,9 @@
    "revision_hoy": false,
    "proxima_revision": "2026-11-30",
    "si_hoy_fuera_revision": {
-    "cierre": 7175.83,
-    "media": 7327.91,
-    "distancia_pct": -2.08
+    "cierre": 6910.39,
+    "media": 7301.37,
+    "distancia_pct": -5.35
    },
    "historial": [
     {
@@ -323,9 +323,9 @@
    "revision_hoy": false,
    "proxima_revision": "2026-12-10",
    "si_hoy_fuera_revision": {
-    "cierre": 7175.83,
-    "media": 7370.24,
-    "distancia_pct": -2.64
+    "cierre": 6910.39,
+    "media": 7343.7,
+    "distancia_pct": -5.9
    },
    "historial": [
     {
@@ -582,6 +582,18 @@
    "tramo": "C",
    "regla": "Primer día con bolsa abierta a partir del día 20 de cada mes",
    "ultima_revision": {
+    "fecha": "2026-11-20",
+    "cierre": 6910.39,
+    "media": 7290.3,
+    "distancia_pct": -5.21,
+    "tendencia": "Bajista",
+    "destino": "MONETARIO",
+    "bonos_12m_pct": 0.26,
+    "monetario_12m_pct": 2.26,
+    "fecha_orden": "2026-11-23",
+    "aplazada_desde": null
+   },
+   "revision_anterior": {
     "fecha": "2026-10-20",
     "cierre": 7712.57,
     "media": 7278.95,
@@ -593,30 +605,30 @@
     "fecha_orden": "2026-10-21",
     "aplazada_desde": null
    },
-   "revision_anterior": {
-    "fecha": "2026-09-21",
-    "cierre": 7764.7,
-    "media": 7195.54,
-    "distancia_pct": 7.91,
-    "tendencia": "Alcista",
-    "destino": "SP",
-    "bonos_12m_pct": 0.13,
-    "monetario_12m_pct": 2.18,
-    "fecha_orden": "2026-09-22",
-    "aplazada_desde": null
-   },
-   "destino": "SP",
-   "destino_texto": "Fondo S&P 500",
-   "cambio": false,
-   "fecha_orden": "2026-10-21",
-   "revision_hoy": false,
-   "proxima_revision": "2026-11-20",
+   "destino": "MONETARIO",
+   "destino_texto": "Fondo monetario",
+   "cambio": true,
+   "fecha_orden": "2026-11-23",
+   "revision_hoy": true,
+   "proxima_revision": "2026-12-21",
    "si_hoy_fuera_revision": {
-    "cierre": 7175.83,
-    "media": 7316.84,
-    "distancia_pct": -1.93
+    "cierre": 6910.39,
+    "media": 7290.3,
+    "distancia_pct": -5.21
    },
    "historial": [
+    {
+     "fecha": "2026-11-20",
+     "cierre": 6910.39,
+     "media": 7290.3,
+     "distancia_pct": -5.21,
+     "tendencia": "Bajista",
+     "destino": "MONETARIO",
+     "bonos_12m_pct": 0.26,
+     "monetario_12m_pct": 2.26,
+     "fecha_orden": "2026-11-23",
+     "aplazada_desde": null
+    },
     {
      "fecha": "2026-10-20",
      "cierre": 7712.57,
@@ -760,18 +772,6 @@
      "monetario_12m_pct": null,
      "fecha_orden": "2025-11-21",
      "aplazada_desde": null
-    },
-    {
-     "fecha": "2025-10-20",
-     "cierre": 6735.13,
-     "media": 6102.64,
-     "distancia_pct": 10.36,
-     "tendencia": "Alcista",
-     "destino": "SP",
-     "bonos_12m_pct": null,
-     "monetario_12m_pct": null,
-     "fecha_orden": "2025-10-21",
-     "aplazada_desde": null
     }
    ],
    "ordenes": [
@@ -859,6 +859,11 @@
      "fecha_orden": "2026-10-21",
      "destino": "SP",
      "fecha": "2026-10-20"
+    },
+    {
+     "fecha_orden": "2026-11-23",
+     "destino": "MONETARIO",
+     "fecha": "2026-11-20"
     }
    ]
   }
@@ -869,16 +874,16 @@
    "nombre": "iShares US Index Fund (IE), clase S Acc EUR",
    "isin": "IE000N4ZYX28",
    "yahoo": "0P0001XF42.F",
-   "ultimo_valor": 12.251,
-   "fecha": "2026-11-18"
+   "ultimo_valor": 11.997,
+   "fecha": "2026-11-19"
   },
   {
    "clave": "BONOS",
    "nombre": "iShares Global Aggregate 1-5Y Bond Index, cubierto EUR",
    "isin": "IE0004ZP1ND3",
    "yahoo": "0P0001W7AI.F",
-   "ultimo_valor": 10.091,
-   "fecha": "2026-11-18"
+   "ultimo_valor": 10.094,
+   "fecha": "2026-11-19"
   },
   {
    "clave": "MONETARIO",
@@ -1516,7 +1521,7 @@
    12.368,
    12.239,
    12.251,
-   12.251
+   11.997
   ],
   "BONOS": [
    10.017,
@@ -1830,7 +1835,7 @@
    10.082,
    10.087,
    10.091,
-   10.091
+   10.094
   ],
   "MONETARIO": [
    48406.50781,
