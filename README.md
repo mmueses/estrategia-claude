@@ -2,6 +2,10 @@
 
 App web que dice, para cada tercio de la cartera, si hay que estar en el fondo del S&P 500 o en refugio, y si toca hacer un traspaso.
 
+> ## ⚠ AVISO IMPORTANTE: NO ES UNA RECOMENDACIÓN DE INVERSIÓN
+>
+> Proyecto personal y experimental de un particular, para su propio uso. Nada de este repositorio ni de la app constituye, bajo ningún concepto, asesoramiento ni recomendación de inversión, análisis financiero u oferta de instrumentos financieros (Ley 6/2023 de los Mercados de Valores y de los Servicios de Inversión, MiFID II y Reglamento (UE) 596/2014). El autor no es asesor ni está registrado en la CNMV. Invertir en bolsa conlleva riesgo, incluida la pérdida total del capital; los resultados pasados y los backtests no garantizan resultados futuros. Los datos vienen de terceros sin garantía y pueden tener errores. En la máxima medida permitida por la ley, el autor no se hace responsable de ninguna pérdida derivada del uso de este contenido. Texto completo en la propia app.
+
 **Abrir la app:** https://mmueses.github.io/estrategia-claude/
 En Android, ábrela con Chrome y pulsa ⋮ > **Añadir a pantalla de inicio** (o **Instalar aplicación**).
 

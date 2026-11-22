@@ -1,6 +1,7 @@
 {
   "name": "Estrategia S&P 500 (3 tramos)",
   "short_name": "Estrategia",
+  "description": "Proyecto personal y experimental. No es recomendación ni asesoramiento de inversión. Invertir en bolsa puede hacer perder dinero; el autor no se hace responsable de pérdidas.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

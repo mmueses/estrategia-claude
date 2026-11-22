@@ -40,7 +40,12 @@ def pct(x):
     return f"{x:+.2f} %".replace('.', ',')
 
 
+AVISO_LEGAL = ('\n\nNota personal de un proyecto experimental. No es recomendación ni asesoramiento de inversión; '
+               'invertir en bolsa puede hacer perder dinero. Sin responsabilidad por pérdidas.')
+
+
 def enviar(topic, titulo, mensaje, prioridad=3, etiquetas=()):
+    mensaje = mensaje + AVISO_LEGAL
     if not topic:
         print(f'[sin NTFY_TOPIC, no se envía] {titulo}: {mensaje}')
         return True
