@@ -43,6 +43,7 @@ class SesionAbierta(unittest.TestCase):
         self.dir = copia_datos()
         base = leer_csv(self.dir, '^GSPC')
         base = base[base.index < '2026-11-18']
+        base.to_csv(f'{self.dir}/GSPC.csv')   # los datos reales ya traen el cierre del 20-11: se quitan
         extra = pd.DataFrame({c: [base[c].iloc[-1]] * 3 for c in base.columns},
                              index=pd.DatetimeIndex(['2026-11-18', '2026-11-19', '2026-11-20'], name='Date'))
         self.gspc = pd.concat([base, extra])
