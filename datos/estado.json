@@ -1,8 +1,8 @@
 {
- "generado": "2026-11-21 13:26 UTC",
+ "generado": "2026-11-24 05:35 UTC",
  "ultimo_cierre": {
-  "fecha": "2026-11-20",
-  "valor": 6910.39
+  "fecha": "2026-11-23",
+  "valor": 7237.17
  },
  "tramos": [
   {
@@ -39,9 +39,9 @@
    "revision_hoy": false,
    "proxima_revision": "2026-11-30",
    "si_hoy_fuera_revision": {
-    "cierre": 6910.39,
-    "media": 7301.37,
-    "distancia_pct": -5.35
+    "cierre": 7237.17,
+    "media": 7334.05,
+    "distancia_pct": -1.32
    },
    "historial": [
     {
@@ -323,9 +323,9 @@
    "revision_hoy": false,
    "proxima_revision": "2026-12-10",
    "si_hoy_fuera_revision": {
-    "cierre": 6910.39,
-    "media": 7343.7,
-    "distancia_pct": -5.9
+    "cierre": 7237.17,
+    "media": 7376.37,
+    "distancia_pct": -1.89
    },
    "historial": [
     {
@@ -588,7 +588,7 @@
     "distancia_pct": -5.21,
     "tendencia": "Bajista",
     "destino": "MONETARIO",
-    "bonos_12m_pct": 0.26,
+    "bonos_12m_pct": 0.48,
     "monetario_12m_pct": 2.26,
     "fecha_orden": "2026-11-23",
     "aplazada_desde": null
@@ -609,12 +609,12 @@
    "destino_texto": "Fondo monetario",
    "cambio": true,
    "fecha_orden": "2026-11-23",
-   "revision_hoy": true,
+   "revision_hoy": false,
    "proxima_revision": "2026-12-21",
    "si_hoy_fuera_revision": {
-    "cierre": 6910.39,
-    "media": 7290.3,
-    "distancia_pct": -5.21
+    "cierre": 7237.17,
+    "media": 7323.07,
+    "distancia_pct": -1.17
    },
    "historial": [
     {
@@ -624,7 +624,7 @@
      "distancia_pct": -5.21,
      "tendencia": "Bajista",
      "destino": "MONETARIO",
-     "bonos_12m_pct": 0.26,
+     "bonos_12m_pct": 0.48,
      "monetario_12m_pct": 2.26,
      "fecha_orden": "2026-11-23",
      "aplazada_desde": null
@@ -874,24 +874,24 @@
    "nombre": "iShares US Index Fund (IE), clase S Acc EUR",
    "isin": "IE000N4ZYX28",
    "yahoo": "0P0001XF42.F",
-   "ultimo_valor": 11.997,
-   "fecha": "2026-11-19"
+   "ultimo_valor": 11.561,
+   "fecha": "2026-11-20"
   },
   {
    "clave": "BONOS",
    "nombre": "iShares Global Aggregate 1-5Y Bond Index, cubierto EUR",
    "isin": "IE0004ZP1ND3",
    "yahoo": "0P0001W7AI.F",
-   "ultimo_valor": 10.094,
-   "fecha": "2026-11-19"
+   "ultimo_valor": 10.116,
+   "fecha": "2026-11-20"
   },
   {
    "clave": "MONETARIO",
    "nombre": "AXA IM Euro Liquidity SRI",
    "isin": "FR0000978371",
    "yahoo": "0P00000N5G.F",
-   "ultimo_valor": 49744.6289,
-   "fecha": "2026-11-19"
+   "ultimo_valor": 49758.1562,
+   "fecha": "2026-11-23"
   }
  ],
  "valores_liquidativos": {
@@ -1207,7 +1207,9 @@
    "2026-11-16",
    "2026-11-17",
    "2026-11-18",
-   "2026-11-19"
+   "2026-11-19",
+   "2026-11-20",
+   "2026-11-23"
   ],
   "SP": [
    10.121,
@@ -1521,7 +1523,9 @@
    12.368,
    12.239,
    12.251,
-   11.997
+   11.997,
+   11.561,
+   11.561
   ],
   "BONOS": [
    10.017,
@@ -1835,7 +1839,9 @@
    10.082,
    10.087,
    10.091,
-   10.094
+   10.094,
+   10.116,
+   10.116
   ],
   "MONETARIO": [
    48406.50781,
@@ -2149,7 +2155,9 @@
    49733.14453,
    49737.71094,
    49740.54297,
-   49744.62891
+   49744.62891,
+   49744.62891,
+   49758.15625
   ]
  }
 }
