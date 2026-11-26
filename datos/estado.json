@@ -1,8 +1,8 @@
 {
- "generado": "2026-11-25 15:33 UTC",
+ "generado": "2026-11-26 03:48 UTC",
  "ultimo_cierre": {
-  "fecha": "2026-11-24",
-  "valor": 7201.09
+  "fecha": "2026-11-25",
+  "valor": 7182.78
  },
  "tramos": [
   {
@@ -39,9 +39,9 @@
    "revision_hoy": false,
    "proxima_revision": "2026-11-30",
    "si_hoy_fuera_revision": {
-    "cierre": 7201.09,
-    "media": 7330.44,
-    "distancia_pct": -1.76
+    "cierre": 7182.78,
+    "media": 7328.61,
+    "distancia_pct": -1.99
    },
    "historial": [
     {
@@ -323,9 +323,9 @@
    "revision_hoy": false,
    "proxima_revision": "2026-12-10",
    "si_hoy_fuera_revision": {
-    "cierre": 7201.09,
-    "media": 7372.77,
-    "distancia_pct": -2.33
+    "cierre": 7182.78,
+    "media": 7370.94,
+    "distancia_pct": -2.55
    },
    "historial": [
     {
@@ -612,9 +612,9 @@
    "revision_hoy": false,
    "proxima_revision": "2026-12-21",
    "si_hoy_fuera_revision": {
-    "cierre": 7201.09,
-    "media": 7319.46,
-    "distancia_pct": -1.62
+    "cierre": 7182.78,
+    "media": 7317.63,
+    "distancia_pct": -1.84
    },
    "historial": [
     {
@@ -874,16 +874,16 @@
    "nombre": "iShares US Index Fund (IE), clase S Acc EUR",
    "isin": "IE000N4ZYX28",
    "yahoo": "0P0001XF42.F",
-   "ultimo_valor": 12.192,
-   "fecha": "2026-11-23"
+   "ultimo_valor": 12.05,
+   "fecha": "2026-11-24"
   },
   {
    "clave": "BONOS",
    "nombre": "iShares Global Aggregate 1-5Y Bond Index, cubierto EUR",
    "isin": "IE0004ZP1ND3",
    "yahoo": "0P0001W7AI.F",
-   "ultimo_valor": 10.118,
-   "fecha": "2026-11-23"
+   "ultimo_valor": 10.12,
+   "fecha": "2026-11-24"
   },
   {
    "clave": "MONETARIO",
@@ -1527,7 +1527,7 @@
    11.997,
    11.561,
    12.192,
-   12.192
+   12.05
   ],
   "BONOS": [
    10.017,
@@ -1844,7 +1844,7 @@
    10.094,
    10.116,
    10.118,
-   10.118
+   10.12
   ],
   "MONETARIO": [
    48406.50781,
