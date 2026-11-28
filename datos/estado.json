@@ -1,8 +1,8 @@
 {
- "generado": "2026-11-27 15:00 UTC",
+ "generado": "2026-11-28 03:33 UTC",
  "ultimo_cierre": {
-  "fecha": "2026-11-25",
-  "valor": 7182.78
+  "fecha": "2026-11-27",
+  "valor": 7297.49
  },
  "tramos": [
   {
@@ -39,9 +39,9 @@
    "revision_hoy": false,
    "proxima_revision": "2026-11-30",
    "si_hoy_fuera_revision": {
-    "cierre": 7182.78,
-    "media": 7328.61,
-    "distancia_pct": -1.99
+    "cierre": 7297.49,
+    "media": 7340.08,
+    "distancia_pct": -0.58
    },
    "historial": [
     {
@@ -323,9 +323,9 @@
    "revision_hoy": false,
    "proxima_revision": "2026-12-10",
    "si_hoy_fuera_revision": {
-    "cierre": 7182.78,
-    "media": 7370.94,
-    "distancia_pct": -2.55
+    "cierre": 7297.49,
+    "media": 7382.41,
+    "distancia_pct": -1.15
    },
    "historial": [
     {
@@ -612,9 +612,9 @@
    "revision_hoy": false,
    "proxima_revision": "2026-12-21",
    "si_hoy_fuera_revision": {
-    "cierre": 7182.78,
-    "media": 7317.63,
-    "distancia_pct": -1.84
+    "cierre": 7297.49,
+    "media": 7329.1,
+    "distancia_pct": -0.43
    },
    "historial": [
     {
